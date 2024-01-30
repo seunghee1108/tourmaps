@@ -1,14 +1,54 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import styles from "@/app/styles/index.module.scss"
+import Topbar from "@/app/components/Topbar/Topbar"
+
+interface DataItem {
+  name: string;
+  price: number;
+  week: number;
+  Subs_Index: number;
+  imageUrl: string;
+} 
+
+function Index() {
+    const [hasWindow, setHasWindow] = useState(false);
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setHasWindow(true);
+        }
+    }, [hasWindow]);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          안녕
-          </p>
+    <div className={styles.container}>
+      <div className={styles.top}>
+      <Topbar />
       </div>
-    </main>
+      <div className={`${styles.div} ${styles.gray}`}>
+        {/* 비디오 */}
+        {/* {hasWindow && (
+          <video
+            className={styles.video}
+            autoPlay={true}
+            muted={true}
+            loop={true}
+            // src={require("../../public/video.mp4")}
+          />
+        )} */}
+        <div className={styles.box1}>
+        </div>
+      </div>
+      <div className={`${styles.div} ${styles.yellow}`}>
+      </div>
+      <div className={`${styles.div} ${styles.purple}`}>
+        {/* <SlideComponent/> */}
+      </div>
+      <div className={`${styles.div} ${styles.blue}`}>
+      </div>
+    </div>
   );
 }
+
+export default Index;
