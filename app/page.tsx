@@ -1,54 +1,43 @@
 "use client";
+import React, { useState } from "react";
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import styles from "@/app/styles/index.module.scss"
-import Topbar from "@/app/components/Topbar/Topbar"
+export default function Home() {
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchResult, setSearchResult] = useState("");
 
-interface DataItem {
-  name: string;
-  price: number;
-  week: number;
-  Subs_Index: number;
-  imageUrl: string;
-} 
+  const serviceKey =
+    "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D";
 
-function Index() {
-    const [hasWindow, setHasWindow] = useState(false);
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            setHasWindow(true);
-        }
-    }, [hasWindow]);
+  const search = async () => {
+    try {
+      const response = await fetch(
+        `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?MobileOS=ETC&MobileApp=%EC%95%84%EC%95%84&_type=json&keyword=${searchKeyword}&serviceKey=P1KIeVsld6hivJRj4DBnCnNrNwQJIDQZ6rk97%2FAK2g3U1Y1zrMMi0cRtRq%2BuvWT0vPN8J19qIDIs6FQxZPyhNA%3D%3D`
+      );
+      if (response.ok) {
+        const result = await response.json();
+        setSearchResult(JSON.stringify(result, null, 2));
+      } else {
+        console.error("Error:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setSearchKeyword(e.target.value); // 검색어 업데이트
+  };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.top}>
-      <Topbar />
-      </div>
-      <div className={`${styles.div} ${styles.gray}`}>
-        {/* 비디오 */}
-        {/* {hasWindow && (
-          <video
-            className={styles.video}
-            autoPlay={true}
-            muted={true}
-            loop={true}
-            // src={require("../../public/video.mp4")}
-          />
-        )} */}
-        <div className={styles.box1}>
-        </div>
-      </div>
-      <div className={`${styles.div} ${styles.yellow}`}>
-      </div>
-      <div className={`${styles.div} ${styles.purple}`}>
-        {/* <SlideComponent/> */}
-      </div>
-      <div className={`${styles.div} ${styles.blue}`}>
-      </div>
+    <div>
+      <input
+        type="text"
+        value={searchKeyword}
+        onChange={handleInputChange} // 검색어 변경 핸들러 연결
+        placeholder="검색어를 입력하세요"
+      />
+      <button onClick={search}>검색</button>
+      <div id="result">{searchResult}</div>
     </div>
   );
 }
-
-export default Index;
