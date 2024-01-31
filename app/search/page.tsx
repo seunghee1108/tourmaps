@@ -51,54 +51,118 @@ const SearchPage: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value.trim());
   };
-  return (
+//   return (
+//     <div className={styles.container}>
+//       <div className={styles.top}>
+//         <Topbar />
+//       </div>
 
-    <div className={styles.container}>
-      <div className={styles.top}>
-        <Topbar />
-      </div>
-      
+//       <h1 className={styles.title}></h1>
+//       <div className={styles.searchContainer}>
+//         <input
+//           type="text"
+//           value={searchKeyword}
+//           onChange={handleInputChange}
+//           placeholder="검색어를 입력하세요"
+//           className={styles.searchInput}
+//         />
+//         <button onClick={handleSearch} className={styles.searchButton}>
+//           검색
+//         </button>
+//       </div>
 
-      <h1 className={styles.title}>검색 페이지</h1>
-      <div className={styles.searchContainer}>
-        <input
-          type="text"
-          value={searchKeyword}
-          onChange={handleInputChange}
-          placeholder="검색어를 입력하세요"
-          className={styles.searchInput}
-        />
-        <button onClick={handleSearch} className={styles.searchButton}>
-          검색
-        </button>
-      </div>
+//       <div className={styles.resultContainer}>
+//         <h2 className={styles.resultTitle}></h2>
+//         <ul className={styles.resultList}>
+//           {searchResult.map((item, index) => (
+//             <li key={index} className={styles.resultItem}>
+//               <div>
+//                 <h3>{item.title}</h3>
+//                 <p>주소1: {item.addr1}</p>
+//                 <p>주소2: {item.addr2}</p>
+//                 <p>카테고리1: {item.cat1}</p>
+//                 <p>카테고리2: {item.cat2}</p>
 
-      <div className={styles.resultContainer}>
-        <h2 className={styles.resultTitle}>검색 결과</h2>
-        <ul className={styles.resultList}>
-          {searchResult.map((item, index) => (
-            <li key={index} className={styles.resultItem}>
-              <div>
-                <h3>{item.title}</h3>
-                <p>주소1: {item.addr1}</p>
-                <p>주소2: {item.addr2}</p>
-                <p>카테고리1: {item.cat1}</p>
-                <p>카테고리2: {item.cat2}</p>
-                <div>
-                <p>이미지1:</p>
-                <img src={item.firstimage} alt={`이미지${index + 1}`} />
-                 {/* {item.firstimage } &&{ <img src={item.firstimage} alt="이미지1" />} */}
-                </div>
+//                 {/* 이미지 뜨게  */}
+//                 {/* <div> */}
+//                 {/* <p>이미지1:</p> */}
+//                 {/* <img src={item.firstimage} alt={`이미지${index + 1}`} /> */}
+//                 {/* {item.firstimage } &&{ <img src={item.firstimage} alt="이미지1" />} */}
+//                 {/* </div> */}
 
-                <p>이미지2: {item.firstimage2}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+//                 <p>이미지1: {item.firstimage}</p>
+//                 <p>이미지2: {item.firstimage2}</p>
+//               </div>
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//     </div>
+//   );
+// };
 
+// export default SearchPage;
+
+return (
+  <div className={styles.container}>
+    <div className={styles.top}>
+      <Topbar />
     </div>
-  );
+
+    <h1 className={styles.title}></h1>
+    <div className={styles.searchContainer}>
+      <input
+        type="text"
+        value={searchKeyword}
+        onChange={handleInputChange}
+        placeholder="검색어를 입력하세요"
+        className={styles.searchInput}
+      />
+      <button onClick={handleSearch} className={styles.searchButton}>
+        검색
+      </button>
+    </div>
+
+    <div className={styles.resultContainer}>
+      <h2 className={styles.resultTitle}></h2>
+      <div className={styles.div3}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>제목</th>
+              <th>주소1</th>
+              <th>주소2</th>
+              <th>카테고리1</th>
+              <th>카테고리2</th>
+              <th>이미지1</th>
+              <th>이미지2</th>
+            </tr>
+          </thead>
+          <tbody>
+            {searchResult.map((item, index) => (
+              <tr key={index} className={styles.row}>
+                <td>{item.title}</td>
+                <td>{item.addr1}</td>
+                <td>{item.addr2}</td>
+                <td>{item.cat1}</td>
+                <td>{item.cat2}</td>
+                <td>{item.firstimage}</td>
+
+                {/* <td>
+                  {item.firstimage && (
+                    <img src={item.firstimage} alt={`이미지${index + 1}`} />
+                  )}
+                </td> */}
+
+                <td>{item.firstimage2}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+);
 };
 
 export default SearchPage;
