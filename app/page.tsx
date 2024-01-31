@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -26,7 +26,18 @@ function Index() {
       );
       if (response.ok) {
         const result = await response.json();
-        setSearchResult(JSON.stringify(result, null, 2));
+        const extractedResults = result.response.body.items.item.map(
+          (item) => ({
+            addr1: item.addr1,
+            addr2: item.addr2,
+            cat1: item.cat1,
+            cat2: item.cat2,
+            title: item.title,
+            firstimage: item.firstimage,
+            firstimage2: item.firstimage2,
+          })
+        );
+        setSearchResult(JSON.stringify(extractedResults, null, 2));
       } else {
         console.error("Error:", response.statusText);
       }
@@ -36,7 +47,7 @@ function Index() {
   };
 
   const handleInputChange = (e) => {
-    setSearchKeyword(e.target.value); // 검색어 업데이트
+    setSearchKeyword(e.target.value.trim()); // 검색어 업데이트
   };
 
   return (
@@ -47,16 +58,20 @@ function Index() {
       <div className={`${styles.div} ${styles.gray}`}>
         <div className={styles.box1}></div>
       </div>
-      <div>
-        <input
-          type="text"
-          value={searchKeyword}
-          onChange={handleInputChange} // 검색어 변경 핸들러 연결
-          placeholder="검색어를 입력하세요"
-        />
-        <button onClick={search}>검색</button>
-        <div id="result">{searchResult}</div>
+
+      <div className={styles.banner2}>
+        <Link href="/search">
+          <form className={styles.form}>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="🔍  지금 검색하러 가기"
+              className={styles.search}
+            />
+          </form>
+        </Link>
       </div>
+
       <div className={`${styles.div} ${styles.yellow}`}></div>
       <div className={`${styles.div} ${styles.purple}`}></div>
       <div className={`${styles.div} ${styles.blue}`}></div>
