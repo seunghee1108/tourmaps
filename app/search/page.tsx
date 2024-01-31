@@ -25,7 +25,7 @@ const SearchPage: React.FC = () => {
   const handleSearch = async () => {
     try {
       const response = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?MobileOS=ETC&MobileApp=%EC%95%84%EC%95%84&_type=json&keyword=${searchKeyword}&serviceKey=${serviceKey}`
+        `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?numOfRows=100&MobileOS=ETC&MobileApp=%EC%95%84%EC%95%84&_type=json&keyword=${searchKeyword}&serviceKey=${serviceKey}`
       );
       if (response.ok) {
         const result = await response.json();
@@ -51,37 +51,52 @@ const SearchPage: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value.trim());
   };
-
   return (
+
     <div className={styles.container}>
-      <h1>검색 페이지</h1>
+      <div className={styles.top}>
+        <Topbar />
+      </div>
+      
+
+      <h1 className={styles.title}>검색 페이지</h1>
       <div className={styles.searchContainer}>
         <input
           type="text"
           value={searchKeyword}
           onChange={handleInputChange}
           placeholder="검색어를 입력하세요"
+          className={styles.searchInput}
         />
-        <button onClick={handleSearch}>검색</button>
+        <button onClick={handleSearch} className={styles.searchButton}>
+          검색
+        </button>
       </div>
+
       <div className={styles.resultContainer}>
-        <h2>검색 결과</h2>
-        <ul>
+        <h2 className={styles.resultTitle}>검색 결과</h2>
+        <ul className={styles.resultList}>
           {searchResult.map((item, index) => (
-            <li key={index}>
+            <li key={index} className={styles.resultItem}>
               <div>
                 <h3>{item.title}</h3>
-                <p>{item.addr1}</p>
-                <p>{item.addr2}</p>
-                <p>{item.cat1}</p>
-                <p>{item.cat2}</p>
-                <p>{item.title}</p>
-                <p>{item.firstimage}</p>
+                <p>주소1: {item.addr1}</p>
+                <p>주소2: {item.addr2}</p>
+                <p>카테고리1: {item.cat1}</p>
+                <p>카테고리2: {item.cat2}</p>
+                <div>
+                <p>이미지1:</p>
+                <img src={item.firstimage} alt={`이미지${index + 1}`} />
+                 {/* {item.firstimage } &&{ <img src={item.firstimage} alt="이미지1" />} */}
+                </div>
+
+                <p>이미지2: {item.firstimage2}</p>
               </div>
             </li>
           ))}
         </ul>
       </div>
+
     </div>
   );
 };
