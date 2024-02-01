@@ -4,9 +4,10 @@ const app = express();
 const cors = require("cors"); 
 
 app.use(cors());
+
 // API 키
 const serviceKey =
-  "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D";
+  "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4Lj1szQ%3D%3D";
 
 // 검색 결과를 받아올 엔드포인트
 const searchEndpoint =
