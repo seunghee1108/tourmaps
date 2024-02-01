@@ -13,7 +13,7 @@ const SearchRegionPage: React.FC = () => {
   const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
 
   const serviceKey =
-    "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%%3D";
+    "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D";
 
   const handleRegionSearch = async () => {
     try {
