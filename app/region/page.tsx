@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import styles from "@/app/styles/search.module.scss";
-import Topbar from "../components/Topbar/Topbar";
+import Topbar from '../components/Topbar/Topbar';
 
 interface SearchResultRegion {
   name: string;
@@ -11,6 +11,7 @@ interface SearchResultRegion {
 const SearchRegionPage: React.FC = () => {
   const [searchRegion, setsearchRegion] = useState<string>("");
   const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
+  const [selectedHashtag, setSelectedHashtag] = useState<string>('');
 
   const serviceKey =
     "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D";
@@ -47,7 +48,7 @@ const SearchRegionPage: React.FC = () => {
 
       <select
         id="regionFilter"
-        className="course_regionFilterSelect"
+        className={`course_regionFilterSelect ${styles.select}`} // 스타일 클래스 추가
         onChange={(e) => handleRegionSearch()}
       >
         <option value="">전체</option>
