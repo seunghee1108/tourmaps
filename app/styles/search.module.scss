@@ -111,3 +111,32 @@
   max-width: 50px;
   height: auto;
 }
+
+.course_regionFilterSelect {
+  width: 200px; /* 선택 박스의 너비 */
+  padding: 8px; /* 선택 박스 내부 여백 */
+  font-size: 16px; /* 폰트 크기 */
+  border: 1px solid #ccc; /* 테두리 스타일 */
+  border-radius: 4px; /* 테두리의 둥근 정도 */
+  outline: none; /* 포커스시 테두리 제거 */
+  background-color: #fff; /* 배경색 */
+  cursor: pointer; /* 마우스 커서 모양 */
+  transition: border-color 0.3s ease; /* 테두리 색상 변화에 대한 전환 효과 */
+}
+
+/* 포커스시 테두리 색상 변경 */
+.course_regionFilterSelect:focus {
+  border-color: #007bff; /* 포커스시 테두리 색상 */
+}
+
+.course_hashtagFilterSelect {
+  width: 200px; /* 선택 박스의 너비 */
+  padding: 8px; /* 선택 박스 내부 여백 */
+  font-size: 16px; /* 폰트 크기 */
+  border: 1px solid #ccc; /* 테두리 스타일 */
+  border-radius: 4px; /* 테두리의 둥근 정도 */
+  outline: none; /* 포커스시 테두리 제거 */
+  background-color: #fff; /* 배경색 */
+  cursor: pointer; /* 마우스 커서 모양 */
+  transition: border-color 0.3s ease; /* 테두리 색상 변화에 대한 전환 효과 */
+}
