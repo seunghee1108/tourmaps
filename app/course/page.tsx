@@ -16,10 +16,47 @@ interface SearchResultList {
   firstimage: string;
   firstimage2: string;
 }
+
+const regions = [
+  { value: "1", label: "서울" },
+  { value: "6", label: "부산" },
+  { value: "4", label: "대구" },
+  { value: "2", label: "인천" },
+  { value: "5", label: "광주" },
+  { value: "3", label: "대전" },
+  { value: "7", label: "울산" },
+  { value: "8", label: "세종" },
+  { value: "31", label: "경기" },
+  { value: "32", label: "강원" },
+  { value: "33", label: "충북" },
+  { value: "34", label: "충남" },
+  { value: "35", label: "경북" },
+  { value: "36", label: "경남" },
+  { value: "37", label: "전북" },
+  { value: "38", label: "전남" },
+  { value: "39", label: "제주" },
+];
+
+const courses = [
+  { value: "C0112", label: "가족코스" },
+  { value: "C0113", label: "나홀로코스" },
+  { value: "C0114", label: "힐링코스" },
+  { value: "C0115", label: "도보코스" },
+  { value: "C0116", label: "캠핑코스" },
+  { value: "C0117", label: "맛코스" },
+];
+
 const SearchRegionPage: React.FC = () => {
   const [searchRegion, setSearchRegion] = useState<string>("");
   const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
   const [searchResult, setSearchResult] = useState<SearchResultList[]>([]);
+
+  // const [currentRegion, setCurrentRegion] = useState<string>(
+  //   regions[0]?.value ?? ""
+  // );
+  // const [currentHashtag, setCurrentHashtag] = useState<string>(
+  //   courses[0]?.value ?? ""
+  // );
 
   const [currentRegion, setCurrentRegion] = useState<string>("");
   const [currentHashtag, setCurrentHashtag] = useState<string>("");
@@ -31,12 +68,22 @@ const SearchRegionPage: React.FC = () => {
     setCurrentHashtag(e.target.value);
   };
 
+  
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`
-      );
-      if (response.ok) {
+        // `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?
+        // serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=3&contentTypeId=25`
+
+        // &numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`
+        
+       ` https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=1&contentTypeId=25`
+        );
+        if (response.ok) {
+          const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+
+        }
         const result = await response.json();
         const extractedResults: SearchResultList[] =
           result.response.body.items.item.map((item: any) => ({
