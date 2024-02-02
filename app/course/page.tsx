@@ -51,13 +51,6 @@ const SearchRegionPage: React.FC = () => {
   const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
   const [searchResult, setSearchResult] = useState<SearchResultList[]>([]);
 
-  // const [currentRegion, setCurrentRegion] = useState<string>(
-  //   regions[0]?.value ?? ""
-  // );
-  // const [currentHashtag, setCurrentHashtag] = useState<string>(
-  //   courses[0]?.value ?? ""
-  // );
-
   const [currentRegion, setCurrentRegion] = useState<string>("");
   const [currentHashtag, setCurrentHashtag] = useState<string>("");
 
@@ -68,32 +61,19 @@ const SearchRegionPage: React.FC = () => {
     setCurrentHashtag(e.target.value);
   };
 
-  
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        // `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?
-        // serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=3&contentTypeId=25`
+        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`
+      );
 
-        // &numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`
-        
-       ` https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=6&contentTypeId=25`
-        );
-        if (response.ok) {
-          const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-
-        }
+      if (response.ok) {
         const result = await response.json();
         const extractedResults: SearchResultList[] =
           result.response.body.items.item.map((item: any) => ({
             addr1: item.addr1,
             addr2: item.addr2,
-            // cat1: item.cat1,
-            // cat2: item.cat2,
             title: item.title,
-            // firstimage: item.firstimage,
-            // firstimage2: item.firstimage2,
           }));
         setSearchResult(extractedResults);
       } else {
@@ -103,6 +83,7 @@ const SearchRegionPage: React.FC = () => {
       console.error("Error fetching data:", error);
     }
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -136,10 +117,6 @@ const SearchRegionPage: React.FC = () => {
                 <th>제목</th>
                 <th>주소1</th>
                 <th>주소2</th>
-                {/* <th>카테고리1</th> */}
-                {/* <th>카테고리2</th> */}
-                {/* <th>이미지1</th> */}
-                {/* <th>이미지2</th> */}
               </tr>
             </thead>
             <tbody>
@@ -148,21 +125,6 @@ const SearchRegionPage: React.FC = () => {
                   <td>{item.title}</td>
                   <td>{item.addr1}</td>
                   <td>{item.addr2}</td>
-                  {/* <td>{item.cat1}</td>  */}
-                  {/* <td>{item.cat2}</td> */}
-                  {/* <td>{item.firstimage2}</td> */}
-
-                  {/* <td> */}
-                  {/* {item.firstimage && (
-      <img src={item.firstimage} alt={`이미지${index + 1}`} style={{ width: "100px", height: "100px" }} />
-    )}
-  </td> */}
-                  {/* <td>
-    {item.firstimage && (
-      <img src={item.firstimage2} alt={`이미지${index + 1}`} style={{ width: "100px", height: "100px" }} />
-    )}
-  </td> */}
-                  {/* <td>{item.firstimage2}</td> */}
                 </tr>
               ))}
             </tbody>
