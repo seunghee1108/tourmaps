@@ -50,6 +50,23 @@ app.get("/searchRegion", async (req, res) => {
   }
 });
 
+app.get("/searchCourse", async (req, res) => {
+  try {
+    // 코스 검색을 위한 URL 생성
+    const apiUrl = `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`;
+
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    console.log(data);
+
+    // 서버에서 받은 데이터를 클라이언트에게 전달
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
