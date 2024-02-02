@@ -1,17 +1,17 @@
 'use client'
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from "@/app/styles/search.module.scss";
 import Topbar from '../components/Topbar/Topbar';
 
 interface SearchResultRegion {
-  name: string;
+  addr1: string;
+  addr2: string;
+  title: string;
 }
 
 const SearchRegionPage: React.FC = () => {
-  const [searchRegion, setsearchRegion] = useState<string>("");
+  const [selectedRegion, setSelectedRegion] = useState<string>("");
   const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
-  const [selectedHashtag, setSelectedHashtag] = useState<string>('');
 
   const serviceKey =
     "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D";
@@ -19,15 +19,16 @@ const SearchRegionPage: React.FC = () => {
   const handleRegionSearch = async () => {
     try {
       const response = await fetch(
-        ` https://apis.data.go.kr/B551011/KorService1/areaCode1?numOfRows=100&MobileOS=ETC&MobileApp=TUORMAPS&_type=json&serviceKey=WRM%252FxwABX2ibu1FMzeh0M4ca55og%252BubZJmgviYSiIEluTOFZkIWMZ3%252BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%25%253D`
+        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=${selectedRegion}&contentTypeId=25`
       );
       if (response.ok) {
         const result = await response.json();
-        const extractedResults: SearchResultRegion[] =
-          result.response.body.items.item.map((item: any) => ({
-            name: item.name,
-          }));
-        setRegionResult(extractedResults); // 지역 검색 결과 상태 업데이트
+        const extractedResults: SearchResultRegion[] = result.response.body.items.item.map((item: any) => ({
+          addr1: item.addr1,
+          addr2: item.addr2,
+          title: item.title
+        }));
+        setRegionResult(extractedResults);
       } else {
         console.error("Error:", response.statusText);
       }
@@ -36,10 +37,13 @@ const SearchRegionPage: React.FC = () => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setsearchRegion(e.target.value.trim());
-  };
-
+  useEffect(() => {
+    // 선택된 지역이 변경될 때마다 검색 수행
+    if (selectedRegion) {
+      handleRegionSearch();
+    }
+  }, [selectedRegion]);
+  
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -49,7 +53,7 @@ const SearchRegionPage: React.FC = () => {
       <select
         id="regionFilter"
         className={`course_regionFilterSelect ${styles.select}`} // 스타일 클래스 추가
-        onChange={(e) => handleRegionSearch()}
+        onChange={(e) => setSelectedRegion(e.target.value)}
       >
         <option value="">전체</option>
         <option value="1">서울</option>
@@ -70,13 +74,33 @@ const SearchRegionPage: React.FC = () => {
         <option value="38">전남</option>
         <option value="39">제주</option>
       </select>
-      <div>
-        <h2>지역 검색 결과</h2>
-        <ul>
-          {regionResult.map((item, index) => (
-            <li key={index}>{item.name}</li>
-          ))}
-        </ul>
+
+      <button onClick={handleRegionSearch} className="course_formButton">
+        검색
+      </button>
+
+      <div className={styles.resultContainer}>
+        <h2 className={styles.resultTitle}></h2>
+        <div className={styles.div3}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>제목</th>
+                <th>주소1</th>
+                <th>주소2</th>
+              </tr>
+            </thead>
+            <tbody>
+              {regionResult.map((item, index) => (
+                <tr key={index} className={styles.row}>
+                  <td>{item.title}</td>
+                  <td>{item.addr1}</td>
+                  <td>{item.addr2}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
