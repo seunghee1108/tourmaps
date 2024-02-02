@@ -77,7 +77,7 @@ const SearchRegionPage: React.FC = () => {
 
         // &numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`
         
-       ` https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=1&contentTypeId=25`
+       ` https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=6&contentTypeId=25`
         );
         if (response.ok) {
           const contentType = response.headers.get("content-type");
