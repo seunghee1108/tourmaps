@@ -49,6 +49,7 @@ app.get("/region", async (req, res) => {
 
 app.get("/course", async (req, res) => {
   try {
+    const { currentRegion, currentHashtag } = req.query;
     // 코스 검색을 위한 URL 생성
     const apiUrl = `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`;
 
