@@ -12,23 +12,28 @@ interface SearchResultRegion {
 const SearchRegionPage: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>("");
   const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
-
   const serviceKey =
     "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D";
 
   const handleRegionSearch = async () => {
     try {
       const response = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=${selectedRegion}&contentTypeId=25`
+        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=${selectedRegion}&contentTypeId=25`,
+        {
+          headers: {
+            Accept: "application/json" // JSON 응답을 요청합니다.
+          }
+        }
       );
       if (response.ok) {
         const result = await response.json();
-        const extractedResults: SearchResultRegion[] = result.response.body.items.item.map((item: any) => ({
+        const items: SearchResultRegion[] = 
+        result.response.body.items.item.map((item: any) => ({
           addr1: item.addr1,
           addr2: item.addr2,
           title: item.title
         }));
-        setRegionResult(extractedResults);
+        setRegionResult(items);
       } else {
         console.error("Error:", response.statusText);
       }
@@ -37,13 +42,18 @@ const SearchRegionPage: React.FC = () => {
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedRegion(e.target.value.trim());
+  };
+  
   useEffect(() => {
+    
     // 선택된 지역이 변경될 때마다 검색 수행
     if (selectedRegion) {
       handleRegionSearch();
     }
   }, [selectedRegion]);
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
