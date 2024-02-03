@@ -17,34 +17,34 @@ interface SearchResultList {
   firstimage2: string;
 }
 
-const regions = [
-  { value: "1", label: "서울" },
-  { value: "6", label: "부산" },
-  { value: "4", label: "대구" },
-  { value: "2", label: "인천" },
-  { value: "5", label: "광주" },
-  { value: "3", label: "대전" },
-  { value: "7", label: "울산" },
-  { value: "8", label: "세종" },
-  { value: "31", label: "경기" },
-  { value: "32", label: "강원" },
-  { value: "33", label: "충북" },
-  { value: "34", label: "충남" },
-  { value: "35", label: "경북" },
-  { value: "36", label: "경남" },
-  { value: "37", label: "전북" },
-  { value: "38", label: "전남" },
-  { value: "39", label: "제주" },
-];
+// const regions = [
+//   { value: "1", label: "서울" },
+//   { value: "6", label: "부산" },
+//   { value: "4", label: "대구" },
+//   { value: "2", label: "인천" },
+//   { value: "5", label: "광주" },
+//   { value: "3", label: "대전" },
+//   { value: "7", label: "울산" },
+//   { value: "8", label: "세종" },
+//   { value: "31", label: "경기" },
+//   { value: "32", label: "강원" },
+//   { value: "33", label: "충북" },
+//   { value: "34", label: "충남" },
+//   { value: "35", label: "경북" },
+//   { value: "36", label: "경남" },
+//   { value: "37", label: "전북" },
+//   { value: "38", label: "전남" },
+//   { value: "39", label: "제주" },
+// ];
 
-const courses = [
-  { value: "C0112", label: "가족코스" },
-  { value: "C0113", label: "나홀로코스" },
-  { value: "C0114", label: "힐링코스" },
-  { value: "C0115", label: "도보코스" },
-  { value: "C0116", label: "캠핑코스" },
-  { value: "C0117", label: "맛코스" },
-];
+// const courses = [
+//   { value: "C0112", label: "가족코스" },
+//   { value: "C0113", label: "나홀로코스" },
+//   { value: "C0114", label: "힐링코스" },
+//   { value: "C0115", label: "도보코스" },
+//   { value: "C0116", label: "캠핑코스" },
+//   { value: "C0117", label: "맛코스" },
+// ];
 
 const SearchRegionPage: React.FC = () => {
   const [searchRegion, setSearchRegion] = useState<string>("");
