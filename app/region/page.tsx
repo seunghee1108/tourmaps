@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from "@/app/styles/search.module.scss";
 import Topbar from '../components/Topbar/Topbar';
+import seoulImage from '@/public/img.png';
 
 interface SearchResultRegion {
   addr1: string;
@@ -54,19 +55,38 @@ const SearchRegionPage: React.FC = () => {
     }
   }, [selectedRegion]);
 
+
+  const handleImageClick = (region: string) => {
+    setSelectedRegion(region);
+  };
+
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
         <Topbar />
       </div>
 
+
+
+      <div>
+      <img src="/img.png" alt="서울" onClick={() => handleImageClick('서울')} />
+      {/* 다른 지역에 대한 이미지도 동일한 방식으로 추가해주세요. */}
+
+      {/* 결과 출력 */}
+      {selectedRegion && <div>선택된 지역: {selectedRegion}</div>}
+    </div>
+
+
+{/* 
       <select
         id="regionFilter"
         className={`course_regionFilterSelect ${styles.select}`} // 스타일 클래스 추가
         onChange={(e) => setSelectedRegion(e.target.value)}
       >
         <option value="">전체</option>
-        <option value="1">서울</option>
+
+        <option value="1" style={{ backgroundImage: `url(${seoulImage})` }}>서울</option>
         <option value="6">부산</option>
         <option value="4">대구</option>
         <option value="2">인천</option>
@@ -111,7 +131,7 @@ const SearchRegionPage: React.FC = () => {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
