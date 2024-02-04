@@ -64,7 +64,7 @@ const SearchRegionPage: React.FC = () => {
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`
+        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`, 
       );
 
       if (response.ok) {
@@ -74,7 +74,9 @@ const SearchRegionPage: React.FC = () => {
             addr1: item.addr1,
             addr2: item.addr2,
             title: item.title,
-          }));
+          })
+          );
+          // console.log(handleSubmit);
         setSearchResult(extractedResults);
       } else {
         console.error("Error:", response.statusText);
@@ -83,6 +85,8 @@ const SearchRegionPage: React.FC = () => {
       console.error("Error fetching data:", error);
     }
   };
+
+
 
   return (
     <div className={styles.container}>
