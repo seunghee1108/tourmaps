@@ -52,16 +52,16 @@
   }
 }
 
-// .video {
-//   position: absolute;
-//   display: flex;
-//   top: 0;
-//   left: 0;
-//   width: 100vw;
-//   height: 100vh;
-//   object-fit: cover;
-//   z-index: -1;
-// }
+.video {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
 
 .blue {
   // background-color: #f6f1eb;;
