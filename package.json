@@ -2,11 +2,15 @@
   "name": "tourmaps",
   "version": "0.1.0",
   "private": true,
+  "hompage": ".",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "Content-Type": "application/json",
+    "Accept": "application/json"
   },
   "dependencies": {
     "add": "^2.0.6",
@@ -14,8 +18,10 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "next": "14.1.0",
+    "node-fetch": "^3.3.2",
     "react": "^18",
     "react-dom": "^18",
+    "react-select": "^5.8.0",
     "sass": "^1.70.0",
     "scss": "^0.2.4"
   },
