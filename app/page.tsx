@@ -56,6 +56,16 @@ function Index() {
         <Topbar />
       </div>
       <div className={`${styles.div} ${styles.gray}`}>
+           {/* 비디오 */}
+       {hasWindow && (
+          <video
+            className={styles.video}
+            autoPlay={true}
+            muted={true}
+            loop={true}
+            src={"/beach.mp4"}
+          />
+        )} 
         <div className={styles.box1}></div>
       </div>
 
