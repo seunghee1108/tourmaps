@@ -31,16 +31,18 @@ app.get("/search", async (req, res) => {
 
 app.get("/region", async (req, res) => {
   try {
-    const { selectedRegion } = req.query; // 클라이언트에서 전달하는 파라미터명을 selectedRegion으로 변경
+    const { selectedRegion } = req.query;
 
     // 검색을 위한 URL 생성
-    const apiUrl = `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=${selectedRegion}&contentTypeId=25`;
+    const apiUrl = `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&numOfRows=10&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=${selectedRegion}&contentTypeId=25`;
 
     const response = await fetch(apiUrl);
     const data = await response.json();
-    console.log(data);
 
+    // JSON 형식으로 데이터 전송
+    res.setHeader('Content-Type', 'application/json'); // JSON 형식으로 설정
     res.json(data);
+
   } catch (error) {
     console.error("Error fetching data:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -51,7 +53,7 @@ app.get("/course", async (req, res) => {
   try {
     const { currentRegion, currentHashtag } = req.query;
     // 코스 검색을 위한 URL 생성
-    const apiUrl = `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`;
+    const apiUrl = `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`;
 
     const response = await fetch(apiUrl);
     const data = await response.json();
