@@ -1,6 +1,5 @@
 const express = require("express");
 const fetch = require("node-fetch");
-const cors = require("cors"); // CORS 미들웨어 추가
 const app = express();
 
 // API 키
@@ -10,9 +9,6 @@ const serviceKey =
 // 검색 결과를 받아올 엔드포인트
 const searchEndpoint =
   "http://apis.data.go.kr/B551011/KorService/searchKeyword";
-
-// CORS 미들웨어를 모든 요청에 적용
-app.use(cors());
 
 app.get("/search", async (req, res) => {
   try {
@@ -68,6 +64,7 @@ app.get("/course", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
