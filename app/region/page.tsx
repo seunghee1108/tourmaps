@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import styles from "@/app/styles/region.module.scss";
 import Topbar from "../components/Topbar/Topbar";
@@ -26,6 +25,7 @@ interface SearchResultRegion {
   sigungucode: string;
   tel: string;
   zipcode: string;
+  overview: string; // 추가된 부분: overview를 저장할 속성 추가
 }
 
 const SearchRegionPage: React.FC = () => {
@@ -37,13 +37,10 @@ const SearchRegionPage: React.FC = () => {
   const handleRegionSearch = async () => {
     try {
       const response = await fetch(
-        
-        `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D&contentTypeId=25&contentId=YOUR_CONTENT_ID&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&MobileOS=ETC`,
-
-        // ` https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&numOfRows=20&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=${selectedRegion}&contentTypeId=25`,
+        ` https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&numOfRows=20&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=${selectedRegion}&contentTypeId=25`,
         {
           headers: {
-            Accept: "application/json", // JSON 응답을 요청합니다.
+            Accept: "application/json",
           },
         }
       );
@@ -59,14 +56,15 @@ const SearchRegionPage: React.FC = () => {
             cat1: item.cat1,
             cat2: item.cat2,
             cat3: item.cat3,
-            contenttupeid: item.contenttypeid,
+            contenttypeid: item.contenttypeid,
             createdtime: item.createdtime,
-            cpyrthDivCd: item.cpyrhtDivCd,
+            cpyrhtDivCd: item.cpyrhtDivCd,
             mapx: item.mapx,
             mapy: item.mapy,
             mlevel: item.mlevel,
             modifiedtime: item.modifiedtime,
             sigungucode: item.sigungucode,
+            overview: "" // overview는 초기에 빈 문자열로 설정
           })
         );
         setRegionResult(items);
@@ -78,10 +76,6 @@ const SearchRegionPage: React.FC = () => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedRegion(e.target.value.trim());
-  };
-
   useEffect(() => {
     // 선택된 지역이 변경될 때마다 검색 수행
     if (selectedRegion) {
@@ -89,30 +83,55 @@ const SearchRegionPage: React.FC = () => {
     }
   }, [selectedRegion]);
 
+  const fetchOverview = async (contentId: string) => {
+    try {
+      const response = await fetch(
+        `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D%22;&contentTypeId=25&contentId=${contentId}&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&MobileOS=ETC`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        const overview = result.response.body.items.item.overview;
+        return overview;
+      } else {
+        console.error("Error:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching overview:", error);
+    }
+    return ""; // 오류가 발생하면 빈 문자열 반환
+  };
+  
+  const handleClickOverview = async (contentId: string) => {
+    try {
+      const response = await fetch(
+        `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=YOUR_SERVICE_KEY&contentTypeId=25&contentId=${contentId}&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&MobileOS=ETC`
+      );
+      if (response.ok) {
+        const result = await response.json();
+        const overview = result.response.body.items.item.overview;
+        // 여기서 overview를 어떻게 처리할지에 대한 코드를 추가합니다.
+      } else {
+        console.error("Error:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
         <Topbar />
       </div>
-      {/* 
-      <div className={styles.buttonsContainer}>
-      <img
-  src="/대전.svg"
-  alt="대전"
-  className={styles.image}
-  onClick={() => setSelectedRegion('1')}
-/> */}
-
-
-      {/* </div> */}
-      {/* 
-  <button onClick={handleRegionSearch} className={`course_formButton ${styles.searchButton}`}>
-    검색
-  </button> */}
-
       <select
         id="regionFilter"
-        className={`course_regionFilterSelect ${styles.select}`} // 스타일 클래스 추가
+        className={`course_regionFilterSelect ${styles.select}`} 
         onChange={(e) => setSelectedRegion(e.target.value)}
       >
         <option value="">전체</option>
@@ -134,11 +153,9 @@ const SearchRegionPage: React.FC = () => {
         <option value="38">전남</option>
         <option value="39">제주</option>
       </select>
-
       <button onClick={handleRegionSearch} className="course_formButton">
         검색
       </button>
-
       <div className={styles.resultContainer}>
         <h2 className={styles.resultTitle}></h2>
         <div className={styles.div3}>
@@ -147,26 +164,26 @@ const SearchRegionPage: React.FC = () => {
               <tr>
                 <th>주소</th>
                 <th>제목</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-                <th>ci</th>
-
+                <th>contentid</th>
+                <th>areacode</th>
+                <th>booktour</th>
+                <th>cat1</th>
+                <th>cat2</th>
+                <th>cat3</th>
+                <th>contenttypeid</th>
+                <th>createdtime</th>
+                <th>cpyrhtDivCd</th>
+                <th>mapx</th>
+                <th>mapy</th>
+                <th>mlevel</th>
+                <th>modifiedtime</th>
+                <th>sigungucode</th>
+                <th>overview</th> {/* 추가: overview 표시 */}
               </tr>
             </thead>
             <tbody>
               {regionResult.map((item, index) => (
-                <tr key={index} className={styles.row}>
+                <tr key={index} className={styles.row} onClick={() => handleClickOverview(item.contentid)}> {/* contentid를 클릭하여 overview 가져오기 */}
                   <td>{item.addr1}</td>
                   <td>{item.title}</td>
                   <td>{item.contentid}</td>
@@ -183,6 +200,7 @@ const SearchRegionPage: React.FC = () => {
                   <td>{item.mlevel}</td>
                   <td>{item.modifiedtime}</td>
                   <td>{item.sigungucode}</td>
+                  <td>{item.overview}</td> {/* 추가: overview 표시 */}
                 </tr>
               ))}
             </tbody>
@@ -191,6 +209,6 @@ const SearchRegionPage: React.FC = () => {
       </div>
     </div>
   );
-};
+              }
 
 export default SearchRegionPage;
