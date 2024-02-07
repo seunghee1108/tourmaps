@@ -64,7 +64,7 @@ const SearchRegionPage: React.FC = () => {
             mlevel: item.mlevel,
             modifiedtime: item.modifiedtime,
             sigungucode: item.sigungucode,
-            overview: "" // overview는 초기에 빈 문자열로 설정
+            overview: "", // overview는 초기에 빈 문자열로 설정
           })
         );
         setRegionResult(items);
@@ -86,7 +86,7 @@ const SearchRegionPage: React.FC = () => {
   const fetchOverview = async (contentId: string) => {
     try {
       const response = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D%22;&contentTypeId=25&contentId=${contentId}&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&MobileOS=ETC`,
+        `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&MobileOS=ETC`,
         {
           headers: {
             Accept: "application/json",
@@ -96,7 +96,7 @@ const SearchRegionPage: React.FC = () => {
       if (response.ok) {
         const result = await response.json();
         const overview = result.response.body.items.item.overview;
-        return overview;
+        return overview; // overview 반환
       } else {
         console.error("Error:", response.statusText);
       }
@@ -105,24 +105,20 @@ const SearchRegionPage: React.FC = () => {
     }
     return ""; // 오류가 발생하면 빈 문자열 반환
   };
-  
+
   const handleClickOverview = async (contentId: string) => {
     try {
-      const response = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=YOUR_SERVICE_KEY&contentTypeId=25&contentId=${contentId}&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&MobileOS=ETC`
+      const overview = await fetchOverview(contentId);
+      console.log(overview); // overview 데이터가 올바르게 로그에 출력되는지 확인
+  
+      const updatedRegionResult = regionResult.map((item) =>
+        item.contentid === contentId ? { ...item, overview } : item
       );
-      if (response.ok) {
-        const result = await response.json();
-        const overview = result.response.body.items.item.overview;
-        // 여기서 overview를 어떻게 처리할지에 대한 코드를 추가합니다.
-      } else {
-        console.error("Error:", response.statusText);
-      }
+      setRegionResult(updatedRegionResult);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  
 
   return (
     <div className={styles.container}>
@@ -131,7 +127,7 @@ const SearchRegionPage: React.FC = () => {
       </div>
       <select
         id="regionFilter"
-        className={`course_regionFilterSelect ${styles.select}`} 
+        className={`course_regionFilterSelect ${styles.select}`}
         onChange={(e) => setSelectedRegion(e.target.value)}
       >
         <option value="">전체</option>
@@ -182,33 +178,37 @@ const SearchRegionPage: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {regionResult.map((item, index) => (
-                <tr key={index} className={styles.row} onClick={() => handleClickOverview(item.contentid)}> {/* contentid를 클릭하여 overview 가져오기 */}
-                  <td>{item.addr1}</td>
-                  <td>{item.title}</td>
-                  <td>{item.contentid}</td>
-                  <td>{item.areacode}</td>
-                  <td>{item.booktour}</td>
-                  <td>{item.cat1}</td>
-                  <td>{item.cat2}</td>
-                  <td>{item.cat3}</td>
-                  <td>{item.contenttypeid}</td>
-                  <td>{item.createdtime}</td>
-                  <td>{item.cpyrhtDivCd}</td>
-                  <td>{item.mapx}</td>
-                  <td>{item.mapy}</td>
-                  <td>{item.mlevel}</td>
-                  <td>{item.modifiedtime}</td>
-                  <td>{item.sigungucode}</td>
-                  <td>{item.overview}</td> {/* 추가: overview 표시 */}
-                </tr>
-              ))}
-            </tbody>
+  {regionResult.map((item, index) => (
+    <tr
+      key={index}
+      className={styles.row}
+      onClick={() => handleClickOverview(item.contentid)}
+    >
+      <td>{item.addr1}</td>
+      <td>{item.title}</td>
+      <td>{item.contentid}</td>
+      <td>{item.areacode}</td>
+      <td>{item.booktour}</td>
+      <td>{item.cat1}</td>
+      <td>{item.cat2}</td>
+      <td>{item.cat3}</td>
+      <td>{item.contenttypeid}</td>
+      <td>{item.createdtime}</td>
+      <td>{item.cpyrhtDivCd}</td>
+      <td>{item.mapx}</td>
+      <td>{item.mapy}</td>
+      <td>{item.mlevel}</td>
+      <td>{item.modifiedtime}</td>
+      <td>{item.sigungucode}</td>
+      <td>{item.overview}</td>
+    </tr>
+  ))}
+</tbody>
           </table>
         </div>
       </div>
     </div>
   );
-              }
+};
 
 export default SearchRegionPage;
