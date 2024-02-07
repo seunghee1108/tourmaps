@@ -154,6 +154,7 @@ const SearchRegionPage: React.FC = () => {
         id="regionFilter"
         className={`course_regionFilterSelect ${styles.select}`}
         onChange={(e) => setSelectedRegion(e.target.value)}
+        
       >
         <option value="">전체</option>
         <option value="1">서울</option>
@@ -225,7 +226,8 @@ const SearchRegionPage: React.FC = () => {
                   <td>{item.mlevel}</td>
                   <td>{item.modifiedtime}</td>
                   <td>{item.sigungucode}</td>
-
+{/* <td>{item.contentid}</td> */}
+                  {/* <td>{item.contentid.overview}</td> */}
                   <td>{item.overview}</td>
                 </tr>
               ))}
