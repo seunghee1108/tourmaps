@@ -30,6 +30,7 @@ interface SearchResultRegion {
 
 const SearchRegionPage: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>("");
+  // const [contentId, setContentId] =useState<string>("")
   const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
   const serviceKey =
     "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D";
@@ -37,7 +38,7 @@ const SearchRegionPage: React.FC = () => {
   const handleRegionSearch = async () => {
     try {
       const response = await fetch(
-        ` https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&numOfRows=20&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=${selectedRegion}&contentTypeId=25`,
+        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&numOfRows=20&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=${selectedRegion}&contentTypeId=25`,
         {
           headers: {
             Accept: "application/json",
@@ -86,7 +87,7 @@ const SearchRegionPage: React.FC = () => {
   const fetchOverview = async (contentId: string) => {
     try {
       const response = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&MobileOS=ETC`,
+        `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&MobileOS=ETC&_type=json`,
         {
           headers: {
             Accept: "application/json",
@@ -104,20 +105,6 @@ const SearchRegionPage: React.FC = () => {
       console.error("Error fetching overview:", error);
     }
     return ""; // 오류가 발생하면 빈 문자열 반환
-  };
-
-  const handleClickOverview = async (contentId: string) => {
-    try {
-      const overview = await fetchOverview(contentId);
-      console.log(overview); // overview 데이터가 올바르게 로그에 출력되는지 확인
-  
-      const updatedRegionResult = regionResult.map((item) =>
-        item.contentid === contentId ? { ...item, overview } : item
-      );
-      setRegionResult(updatedRegionResult);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
   };
 
   return (
@@ -182,7 +169,7 @@ const SearchRegionPage: React.FC = () => {
     <tr
       key={index}
       className={styles.row}
-      onClick={() => handleClickOverview(item.contentid)}
+      onClick={() => fetchOverview(item.contentid)}
     >
       <td>{item.addr1}</td>
       <td>{item.title}</td>
