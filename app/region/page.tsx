@@ -32,8 +32,7 @@ const SearchRegionPage: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>("");
   // const [contentId, setContentId] =useState<string>("")
   const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
-  const serviceKey =
-    "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D";
+  
 
   const handleRegionSearch = async () => {
     try {
@@ -65,7 +64,7 @@ const SearchRegionPage: React.FC = () => {
             mlevel: item.mlevel,
             modifiedtime: item.modifiedtime,
             sigungucode: item.sigungucode,
-            overview: "", // overview는 초기에 빈 문자열로 설정
+            overview: item.overview, // overview는 초기에 빈 문자열로 설정ㅈ
           })
         );
         setRegionResult(items);
@@ -84,6 +83,25 @@ const SearchRegionPage: React.FC = () => {
     }
   }, [selectedRegion]);
 
+  useEffect(() => {
+    const fetchOverviews = async () => {
+      const newRegionResult = [...regionResult];
+      for (let i = 0; i < newRegionResult.length; i++) {
+        try {
+          const response = await fetchOverview(newRegionResult[i].contentid);
+          newRegionResult[i].overview = response;
+        } catch (error) {
+          console.error("Error fetching overview:", error);
+          newRegionResult[i].overview = "";
+        }
+      }
+      setRegionResult(newRegionResult);
+    };
+  
+    fetchOverviews();
+  }, []); 
+
+
   const fetchOverview = async (contentId: string) => {
     try {
       const response = await fetch(
@@ -96,16 +114,36 @@ const SearchRegionPage: React.FC = () => {
       );
       if (response.ok) {
         const result = await response.json();
-        const overview = result.response.body.items.item.overview;
-        return overview; // overview 반환
+        const items: SearchResultRegion[] = result.response.body.items.item.map(
+          (item: any) => ({
+            addr1: item.addr1,
+            title: item.title,
+            contentid: item.contentid,
+            areacode: item.areacode,
+            booktour: item.booktour,
+            cat1: item.cat1,
+            cat2: item.cat2,
+            cat3: item.cat3,
+            contenttypeid: item.contenttypeid,
+            createdtime: item.createdtime,
+            cpyrhtDivCd: item.cpyrhtDivCd,
+            mapx: item.mapx,
+            mapy: item.mapy,
+            mlevel: item.mlevel,
+            modifiedtime: item.modifiedtime,
+            sigungucode: item.sigungucode,
+            overview: item.overview, // overview 초기에 빈 문자열로 설정
+          })
+        );
+        setRegionResult(items);
       } else {
         console.error("Error:", response.statusText);
       }
     } catch (error) {
-      console.error("Error fetching overview:", error);
+      console.error("Error fetching data:", error);
     }
-    return ""; // 오류가 발생하면 빈 문자열 반환
   };
+
 
   return (
     <div className={styles.container}>
@@ -165,32 +203,33 @@ const SearchRegionPage: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-  {regionResult.map((item, index) => (
-    <tr
-      key={index}
-      className={styles.row}
-      onClick={() => fetchOverview(item.contentid)}
-    >
-      <td>{item.addr1}</td>
-      <td>{item.title}</td>
-      <td>{item.contentid}</td>
-      <td>{item.areacode}</td>
-      <td>{item.booktour}</td>
-      <td>{item.cat1}</td>
-      <td>{item.cat2}</td>
-      <td>{item.cat3}</td>
-      <td>{item.contenttypeid}</td>
-      <td>{item.createdtime}</td>
-      <td>{item.cpyrhtDivCd}</td>
-      <td>{item.mapx}</td>
-      <td>{item.mapy}</td>
-      <td>{item.mlevel}</td>
-      <td>{item.modifiedtime}</td>
-      <td>{item.sigungucode}</td>
-      <td>{item.overview}</td>
-    </tr>
-  ))}
-</tbody>
+              {regionResult.map((item, index) => (
+                <tr
+                  key={index}
+                  className={styles.row}
+                  onClick={()  => fetchOverview(item.contentid)} 
+                >
+                  <td>{item.addr1}</td>
+                  <td>{item.title}</td>
+                  <td>{item.contentid}</td>
+                  <td>{item.areacode}</td>
+                  <td>{item.booktour}</td>
+                  <td>{item.cat1}</td>
+                  <td>{item.cat2}</td>
+                  <td>{item.cat3}</td>
+                  <td>{item.contenttypeid}</td>
+                  <td>{item.createdtime}</td>
+                  <td>{item.cpyrhtDivCd}</td>
+                  <td>{item.mapx}</td>
+                  <td>{item.mapy}</td>
+                  <td>{item.mlevel}</td>
+                  <td>{item.modifiedtime}</td>
+                  <td>{item.sigungucode}</td>
+
+                  <td>{item.overview}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
