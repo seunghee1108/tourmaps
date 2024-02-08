@@ -26,7 +26,7 @@ interface SearchResultRegion {
   sigungucode: string;
   tel: string;
   zipcode: string;
-  overview: string; 
+  overview: string;
 }
 
 const SearchRegionPage: React.FC = () => {
@@ -63,7 +63,7 @@ const SearchRegionPage: React.FC = () => {
             mlevel: item.mlevel,
             modifiedtime: item.modifiedtime,
             sigungucode: item.sigungucode,
-            overview: item.overview, 
+            overview: item.overview,
           })
         );
         setRegionResult(items);
@@ -182,20 +182,20 @@ const SearchRegionPage: React.FC = () => {
               <tr>
                 <th>주소</th>
                 <th>제목</th>
-                <th>contentid</th>
+                {/* <th>contentid</th>
                 <th>areacode</th>
-                <th>booktour</th>
-                <th>cat1</th>
+                <th>booktour</th> */}
+                {/* <th>cat1</th>
                 <th>cat2</th>
-                <th>cat3</th>
-                <th>contenttypeid</th>
-                <th>createdtime</th>
-                <th>cpyrhtDivCd</th>
+                <th>cat3</th> */}
+                {/* <th>contenttypeid</th> */}
+                {/* <th>createdtime</th> */}
+                {/* <th>cpyrhtDivCd</th> */}
                 <th>mapx</th>
                 <th>mapy</th>
-                <th>mlevel</th>
-                <th>modifiedtime</th>
-                <th>sigungucode</th>
+                {/* <th>mlevel</th> */}
+                {/* <th>modifiedtime</th>
+                <th>sigungucode</th> */}
                 <th>overview</th> {/* 추가: overview 표시 */}
               </tr>
             </thead>
@@ -208,20 +208,20 @@ const SearchRegionPage: React.FC = () => {
                 >
                   <td>{item.addr1}</td>
                   <td>{item.title}</td>
-                  <td>{item.contentid}</td>
+                  {/* <td>{item.contentid}</td>
                   <td>{item.areacode}</td>
-                  <td>{item.booktour}</td>
-                  <td>{item.cat1}</td>
+                  <td>{item.booktour}</td> */}
+                  {/* <td>{item.cat1}</td>
                   <td>{item.cat2}</td>
-                  <td>{item.cat3}</td>
-                  <td>{item.contenttypeid}</td>
-                  <td>{item.createdtime}</td>
-                  <td>{item.cpyrhtDivCd}</td>
+                  <td>{item.cat3}</td> */}
+                  {/* <td>{item.contenttypeid}</td> */}
+                  {/* <td>{item.createdtime}</td> */}
+                  {/* <td>{item.cpyrhtDivCd}</td> */}
                   <td>{item.mapx}</td>
                   <td>{item.mapy}</td>
-                  <td>{item.mlevel}</td>
-                  <td>{item.modifiedtime}</td>
-                  <td>{item.sigungucode}</td>
+                  {/* <td>{item.mlevel}</td> */}
+                  {/* <td>{item.modifiedtime}</td>
+                  <td>{item.sigungucode}</td> */}
                   {/* <td>{item.contentid}</td> */}
                   {/* <td>{item.contentid.overview}</td> */}
                   <td>{item.overview}</td>
