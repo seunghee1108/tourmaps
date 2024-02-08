@@ -24,9 +24,12 @@ const SearchRegionPage: React.FC = () => {
 
   const [currentRegion, setCurrentRegion] = useState<string>("");
   const [currentHashtag, setCurrentHashtag] = useState<string>("");
-
-  const serviceKey =
-    "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ3D%3D";
+  const handleItemClick = (title: string) => {
+    // 클릭된 항목의 정보를 사용하여 새로운 페이지 URL을 생성합니다.
+    const newPageUrl = `/detail`;
+    // 새로운 페이지로 이동합니다.
+    window.location.href = newPageUrl;
+  };
 
   const handleHashtagChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentHashtag(e.target.value);
@@ -97,7 +100,8 @@ const SearchRegionPage: React.FC = () => {
             <tbody>
               {searchResult.map((item, index) => (
                 <tr key={index} className={styles.row}>
-                  <td>{item.title}</td>
+                   <td onClick={() => handleItemClick(item.title)}>{item.title}</td>
+                  {/* <td>{item.title}</td> */}
                   <td>{item.addr1}</td>
                   <td>{item.addr2}</td>
                 </tr>
