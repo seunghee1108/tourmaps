@@ -67,6 +67,12 @@ app.get("/course", async (req, res) => {
   }
 });
 
+app.get("/detail/:title", (req, res) => {
+  const title = req.params.title;
+  res.send(`Detail page for ${title}`);
+});
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
