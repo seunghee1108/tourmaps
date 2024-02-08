@@ -99,9 +99,9 @@ const SearchRegionPage: React.FC = () => {
             </thead>
             <tbody>
               {searchResult.map((item, index) => (
-                <tr key={index} className={styles.row}>
-                   <td onClick={() => handleItemClick(item.title)}>{item.title}</td>
-                  {/* <td>{item.title}</td> */}
+                <tr key={index} className={styles.row} onClick={() => handleItemClick(item.title)}>
+                   {/* <td>{item.</td></td>{item.title}</td> */}
+                  <td>{item.title}</td>
                   <td>{item.addr1}</td>
                   <td>{item.addr2}</td>
                 </tr>
