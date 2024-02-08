@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import styles from "@/app/styles/region.module.scss";
 import Topbar from "../components/Topbar/Topbar";
@@ -25,14 +26,12 @@ interface SearchResultRegion {
   sigungucode: string;
   tel: string;
   zipcode: string;
-  overview: string; // 추가된 부분: overview를 저장할 속성 추가
+  overview: string; 
 }
 
 const SearchRegionPage: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>("");
-  // const [contentId, setContentId] =useState<string>("")
   const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
-  
 
   const handleRegionSearch = async () => {
     try {
@@ -64,7 +63,7 @@ const SearchRegionPage: React.FC = () => {
             mlevel: item.mlevel,
             modifiedtime: item.modifiedtime,
             sigungucode: item.sigungucode,
-            overview: item.overview, // overview는 초기에 빈 문자열로 설정ㅈ
+            overview: item.overview, 
           })
         );
         setRegionResult(items);
@@ -97,10 +96,9 @@ const SearchRegionPage: React.FC = () => {
       }
       setRegionResult(newRegionResult);
     };
-  
-    fetchOverviews();
-  }, []); 
 
+    fetchOverviews();
+  }, []);
 
   const fetchOverview = async (contentId: string) => {
     try {
@@ -144,7 +142,6 @@ const SearchRegionPage: React.FC = () => {
     }
   };
 
-
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -154,7 +151,6 @@ const SearchRegionPage: React.FC = () => {
         id="regionFilter"
         className={`course_regionFilterSelect ${styles.select}`}
         onChange={(e) => setSelectedRegion(e.target.value)}
-        
       >
         <option value="">전체</option>
         <option value="1">서울</option>
@@ -208,7 +204,7 @@ const SearchRegionPage: React.FC = () => {
                 <tr
                   key={index}
                   className={styles.row}
-                  onClick={()  => fetchOverview(item.contentid)} 
+                  onClick={() => fetchOverview(item.contentid)}
                 >
                   <td>{item.addr1}</td>
                   <td>{item.title}</td>
@@ -226,7 +222,7 @@ const SearchRegionPage: React.FC = () => {
                   <td>{item.mlevel}</td>
                   <td>{item.modifiedtime}</td>
                   <td>{item.sigungucode}</td>
-{/* <td>{item.contentid}</td> */}
+                  {/* <td>{item.contentid}</td> */}
                   {/* <td>{item.contentid.overview}</td> */}
                   <td>{item.overview}</td>
                 </tr>
