@@ -47,7 +47,9 @@ interface SearchResultInfo {
 }
 
 const DetailPage: React.FC = () => {
-  const [commonInfo, setCommonInfo] = useState<any>(null);
+  const [commonInfo, setCommonInfo] = useState<SearchResultDetail[]>([]); // 상태의 초기값을 빈 배열로 설정
+
+  // const [commonInfo, setCommonInfo] = useState<any>(null);
   const [introInfo, setIntroInfo] = useState<any>(null);
   const [courseInfo, setCourseInfo] = useState<any>(null);
   const [detailnResult, setDetailResult] = useState<SearchResultDetail[]>([]);
@@ -77,7 +79,7 @@ const DetailPage: React.FC = () => {
             overview: item.overview,
           })
         );
-        setDetailResult(items);
+        setCommonInfo(items); 
       } else {
         console.error("Error:", response.statusText);
       }
@@ -101,7 +103,7 @@ const DetailPage: React.FC = () => {
             taketime: item.taketime,
           })
         );
-        setIntroResult(items);
+        setIntroInfo(items);
       } else {
         console.error("Error:", response.statusText);
       }
@@ -123,7 +125,7 @@ const DetailPage: React.FC = () => {
             subdetailoverview: item.subdetailoverview,
           })
         );
-        setInfoResult(items);
+        setCourseInfo(items);
       } else {
         console.error("Error:", response.statusText);
       }
@@ -140,15 +142,14 @@ const DetailPage: React.FC = () => {
       <div>
         <h1>Detail Page</h1>
         {/* 공통 정보 출력 */}
-        {commonInfo && (
-          <div>
-            <h2>공통 정보</h2>
-            <p>Title: {commonInfo.title}</p>
-            <img src={commonInfo.firstimage} alt="Common Info Image" />
-            <p>Overview: {commonInfo.overview}</p>
-            {/* 여기에 공통 정보를 출력하는 코드 추가 */}
-          </div>
-        )}
+        {commonInfo && commonInfo.map((info, index) => (
+  <div key={index}>
+    <h2>공통 정보</h2>
+    <p>Title: {info.title}</p>
+    <img src={info.firstimage} alt="Common Info Image" />
+    <p>Overview: {info.overview}</p>
+  </div>
+))}
         {/* 소개 정보 출력 */}
         {introInfo && (
           <div>
