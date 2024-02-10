@@ -49,11 +49,11 @@ interface SearchResultInfo {
 const DetailPage: React.FC = () => {
   const [commonInfo, setCommonInfo] = useState<SearchResultDetail[]>([]); // 상태의 초기값을 빈 배열로 설정
   const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]); // 상태의 초기값을 빈 배열로 설정
-
+  const [courseInfo, setCourseInfo] = useState<SearchResultInfo[]>([]);
 
   // const [commonInfo, setCommonInfo] = useState<any>(null);
   // const [introInfo, setIntroInfo] = useState<any>(null);
-  const [courseInfo, setCourseInfo] = useState<any>(null);
+  // const [courseInfo, setCourseInfo] = useState<any>(null);
   const [detailnResult, setDetailResult] = useState<SearchResultDetail[]>([]);
   const [introResult, setIntroResult] = useState<SearchResultIntro[]>([]);
   const [infoResult, setInfoResult] = useState<SearchResultInfo[]>([]);
@@ -135,6 +135,7 @@ const DetailPage: React.FC = () => {
       console.error("Error fetching data:", error);
     }
   };
+
   
   return (
     <div className={styles.container}>
@@ -162,12 +163,14 @@ const DetailPage: React.FC = () => {
   </div>
 ))}
         {/* 코스 정보 출력 */}
-        {courseInfo && (
-          <div>
-            <h2>코스 정보</h2>
-            {/* 여기에 코스 정보를 출력하는 코드 추가 */}
-          </div>
-        )}
+        {courseInfo && courseInfo.map((info, index) => (
+  <div key={index}>
+    <h2>코스 정보</h2>
+    <p>Subname: {info.subname}</p>
+    <p>Subdetailoverview: {info.subdetailoverview}</p>
+    {/* 여기에 코스 정보를 출력하는 코드 추가 */}
+  </div>
+))}
       </div>
     </div>
   );
