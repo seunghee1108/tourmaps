@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "@/app/styles/search.module.scss";
 import Topbar from "../components/Topbar/Topbar";
+import { useRouter } from 'next/router';
+
 
 interface SearchResultDetail {
   // contentid: string;
@@ -46,14 +48,18 @@ interface SearchResultInfo {
   subdetailoverview: string;
 }
 
-const DetailPage: React.FC = () => {
-  const [commonInfo, setCommonInfo] = useState<SearchResultDetail[]>([]); // 상태의 초기값을 빈 배열로 설정
-  const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]); // 상태의 초기값을 빈 배열로 설정
-  const [courseInfo, setCourseInfo] = useState<SearchResultInfo[]>([]);
+interface DetailPageProps {
+  contentId: string; // contentId를 props로 받아옴
+}
 
-  // const [commonInfo, setCommonInfo] = useState<any>(null);
-  // const [introInfo, setIntroInfo] = useState<any>(null);
-  // const [courseInfo, setCourseInfo] = useState<any>(null);
+
+const DetailPage: React.FC<DetailPageProps> = ({ contentId }) => {
+
+
+// const DetailPage: React.FC<DetailPageProps> = ({ contentId }) => {
+  const [commonInfo, setCommonInfo] = useState<SearchResultDetail[]>([]);
+  const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]);
+  const [courseInfo, setCourseInfo] = useState<SearchResultInfo[]>([]);
   const [detailnResult, setDetailResult] = useState<SearchResultDetail[]>([]);
   const [introResult, setIntroResult] = useState<SearchResultIntro[]>([]);
   const [infoResult, setInfoResult] = useState<SearchResultInfo[]>([]);
@@ -67,13 +73,18 @@ const DetailPage: React.FC = () => {
     fetchCourseInfo();
   }, []);
 
+  
+  
   const fetchCommonInfo = async () => {
     try {
       const response = await fetch(
-        `http://apis.data.go.kr/B551011/KorService1/detailCommon1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=1942787&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&_type=json`
-      );
+        `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&MobileOS=ETC&_type=json`
+        );
+        // `http://apis.data.go.kr/B551011/KorService1/detailCommon1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=1942787&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&_type=json`
+      // );
       if (response.ok) {
         const result = await response.json();
+        if (result.response && result.response.body && result.response.body.items && result.response.body.items.item) {
         const items: SearchResultDetail[] = result.response.body.items.item.map(
           (item: any) => ({
             title: item.title,
@@ -81,21 +92,23 @@ const DetailPage: React.FC = () => {
             overview: item.overview,
           })
         );
-        setCommonInfo(items); 
+        setCommonInfo(items);
       } else {
-        console.error("Error:", response.statusText);
+        console.error("No data found in the response:", result);
       }
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    } else {
+      console.error("Error:", response.statusText);
     }
-  };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
 
   const fetchIntroInfo = async () => {
     try {
       const response = await fetch(
-        `http://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=1942787&MobileOS=ETC&MobileApp=AppTest&_type=json`
+        `http://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
-
 
       if (response.ok) {
         const result = await response.json();
@@ -113,11 +126,11 @@ const DetailPage: React.FC = () => {
       console.error("Error fetching data:", error);
     }
   };
-  
+
   const fetchCourseInfo = async () => {
     try {
       const response = await fetch(
-        `http://apis.data.go.kr/B551011/KorService1/detailInfo1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=1942787&MobileOS=ETC&MobileApp=AppTest&_type=json`
+        `http://apis.data.go.kr/B551011/KorService1/detailInfo1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
       if (response.ok) {
         const result = await response.json();
@@ -136,7 +149,6 @@ const DetailPage: React.FC = () => {
     }
   };
 
-  
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -145,35 +157,38 @@ const DetailPage: React.FC = () => {
       <div>
         <h1>Detail Page</h1>
         {/* 공통 정보 출력 */}
-        {commonInfo && commonInfo.map((info, index) => (
-  <div key={index}>
-    <h2>공통 정보</h2>
-    <p>Title: {info.title}</p>
-    <img src={info.firstimage} alt="Common Info Image" />
-    <p>Overview: {info.overview}</p>
-  </div>
-))}
+        {commonInfo &&
+          commonInfo.map((info, index) => (
+            <div key={index}>
+              <h2>공통 정보</h2>
+              <p>Title: {info.title}</p>
+              <img src={info.firstimage} alt="Common Info Image" />
+              <p>Overview: {info.overview}</p>
+            </div>
+          ))}
         {/* 소개 정보 출력 */}
-        {introInfo && introInfo.map((info, index) => (
-  <div key={index}>
-    <h2>소개 정보</h2>
-    <p>Distance: {info.distance}</p>
-    <p>Take Time: {info.taketime}</p>
-    {/* 여기에 소개 정보를 출력하는 코드 추가 */}
-  </div>
-))}
+        {introInfo &&
+          introInfo.map((info, index) => (
+            <div key={index}>
+              <h2>소개 정보</h2>
+              <p>Distance: {info.distance}</p>
+              <p>Take Time: {info.taketime}</p>
+              {/* 여기에 소개 정보를 출력하는 코드 추가 */}
+            </div>
+          ))}
         {/* 코스 정보 출력 */}
-        {courseInfo && courseInfo.map((info, index) => (
-  <div key={index}>
-    <h2>코스 정보</h2>
-    <p>Subname: {info.subname}</p>
-    <p>Subdetailoverview: {info.subdetailoverview}</p>
-    {/* 여기에 코스 정보를 출력하는 코드 추가 */}
-  </div>
-))}
+        {courseInfo &&
+          courseInfo.map((info, index) => (
+            <div key={index}>
+              <h2>코스 정보</h2>
+              <p>Subname: {info.subname}</p>
+              <p>Subdetailoverview: {info.subdetailoverview}</p>
+              {/* 여기에 코스 정보를 출력하는 코드 추가 */}
+            </div>
+          ))}
       </div>
     </div>
   );
-        }  
+};
 
 export default DetailPage;
