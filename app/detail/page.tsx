@@ -48,9 +48,11 @@ interface SearchResultInfo {
 
 const DetailPage: React.FC = () => {
   const [commonInfo, setCommonInfo] = useState<SearchResultDetail[]>([]); // 상태의 초기값을 빈 배열로 설정
+  const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]); // 상태의 초기값을 빈 배열로 설정
+
 
   // const [commonInfo, setCommonInfo] = useState<any>(null);
-  const [introInfo, setIntroInfo] = useState<any>(null);
+  // const [introInfo, setIntroInfo] = useState<any>(null);
   const [courseInfo, setCourseInfo] = useState<any>(null);
   const [detailnResult, setDetailResult] = useState<SearchResultDetail[]>([]);
   const [introResult, setIntroResult] = useState<SearchResultIntro[]>([]);
@@ -111,7 +113,7 @@ const DetailPage: React.FC = () => {
       console.error("Error fetching data:", error);
     }
   };
-
+  
   const fetchCourseInfo = async () => {
     try {
       const response = await fetch(
@@ -151,12 +153,14 @@ const DetailPage: React.FC = () => {
   </div>
 ))}
         {/* 소개 정보 출력 */}
-        {introInfo && (
-          <div>
-            <h2>소개 정보</h2>
-            {/* 여기에 소개 정보를 출력하는 코드 추가 */}
-          </div>
-        )}
+        {introInfo && introInfo.map((info, index) => (
+  <div key={index}>
+    <h2>소개 정보</h2>
+    <p>Distance: {info.distance}</p>
+    <p>Take Time: {info.taketime}</p>
+    {/* 여기에 소개 정보를 출력하는 코드 추가 */}
+  </div>
+))}
         {/* 코스 정보 출력 */}
         {courseInfo && (
           <div>
