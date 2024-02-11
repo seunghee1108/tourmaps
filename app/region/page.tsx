@@ -147,7 +147,24 @@ const SearchRegionPage: React.FC = () => {
       <div className={styles.top}>
         <Topbar />
       </div>
-      <select
+
+      <div className={styles.buttonsContainer}>
+        <img
+          src="/대전.png"
+          alt="대전"
+          className={styles.image}
+          onClick={() => setSelectedRegion("3")}
+        />
+      </div>
+
+      <button
+        onClick={handleRegionSearch}
+        className={`course_formButton ${styles.searchButton}`}
+      >
+        검색
+      </button>
+
+      {/* <select
         id="regionFilter"
         className={`course_regionFilterSelect ${styles.select}`}
         onChange={(e) => setSelectedRegion(e.target.value)}
@@ -173,7 +190,7 @@ const SearchRegionPage: React.FC = () => {
       </select>
       <button onClick={handleRegionSearch} className="course_formButton">
         검색
-      </button>
+      </button> */}
       <div className={styles.resultContainer}>
         <h2 className={styles.resultTitle}></h2>
         <div className={styles.div3}>
