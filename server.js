@@ -67,12 +67,39 @@ app.get("/course", async (req, res) => {
   }
 });
 
-app.get("/detail/:title", (req, res) => {
-  const title = req.params.title;
-  res.send(`Detail page for ${title}`);
+// app.get("/detail/:title", (req, res) => {
+//   const title = req.params.title;
+//   res.send(`Detail page for ${title}`);
+// });
+
+
+
+app.get('/detail', async (req, res) => {
+  try {
+      const commonInfoResponse = await fetch(
+          `http://apis.data.go.kr/B551011/KorService1/detailCommon1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=1942787&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y`
+      );
+      const introInfoResponse = await fetch(
+          `http://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=1942787&MobileOS=ETC&MobileApp=AppTest`
+      );
+      const courseInfoResponse = await fetch(
+          `http://apis.data.go.kr/B551011/KorService1/detailInfo1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=1942787&MobileOS=ETC&MobileApp=AppTest`
+      );
+
+      if (commonInfoResponse.ok && introInfoResponse.ok && courseInfoResponse.ok) {
+          const commonInfo = await commonInfoResponse.json();
+          const introInfo = await introInfoResponse.json();
+          const courseInfo = await courseInfoResponse.json();
+          
+          res.json({ commonInfo, introInfo, courseInfo });
+      } else {
+          res.status(500).json({ error: 'Failed to fetch data' });
+      }
+  } catch (error) {
+      console.error('Error fetching data:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
