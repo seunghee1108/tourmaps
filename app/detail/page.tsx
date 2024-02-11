@@ -3,8 +3,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "@/app/styles/search.module.scss";
 import Topbar from "../components/Topbar/Topbar";
-// import { useParams } from "react-router-dom";
-import { useRouter } from "next/router";
 
 interface SearchResultDetail {
   // contentid: string;
@@ -49,34 +47,30 @@ interface SearchResultInfo {
 }
 
 const DetailPage: React.FC = () => {
-  const router = useRouter(); 
-  const contentId = router.query.contentId as string;
-  // const { contentId } = router.query; 
   const [commonInfo, setCommonInfo] = useState<SearchResultDetail[]>([]); // 상태의 초기값을 빈 배열로 설정
   const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]); // 상태의 초기값을 빈 배열로 설정
   const [courseInfo, setCourseInfo] = useState<SearchResultInfo[]>([]);
+
+  // const [commonInfo, setCommonInfo] = useState<any>(null);
+  // const [introInfo, setIntroInfo] = useState<any>(null);
+  // const [courseInfo, setCourseInfo] = useState<any>(null);
   const [detailnResult, setDetailResult] = useState<SearchResultDetail[]>([]);
   const [introResult, setIntroResult] = useState<SearchResultIntro[]>([]);
   const [infoResult, setInfoResult] = useState<SearchResultInfo[]>([]);
 
   useEffect(() => {
-    // contentId가 변경될 때마다 API 호출
-    if (contentId) {
-      fetchCommonInfo();
-      fetchIntroInfo();
-      fetchCourseInfo();
-    }
-      
-  }, [contentId]); 
-
-  const handleSelectLocation = (contentId: string) => {
-    setContentId(contentId);
-  };
+    // 공통 정보 가져오는 API 호출
+    fetchCommonInfo();
+    // 소개 정보 가져오는 API 호출
+    fetchIntroInfo();
+    // 코스 정보 가져오는 API 호출
+    fetchCourseInfo();
+  }, []);
 
   const fetchCommonInfo = async () => {
     try {
       const response = await fetch(
-        `http://apis.data.go.kr/B551011/KorService1/detailCommon1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&_type=json`
+        `http://apis.data.go.kr/B551011/KorService1/detailCommon1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=1942787&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&_type=json`
       );
       if (response.ok) {
         const result = await response.json();
@@ -99,7 +93,7 @@ const DetailPage: React.FC = () => {
   const fetchIntroInfo = async () => {
     try {
       const response = await fetch(
-        `http://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
+        `http://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=1942787&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
 
 
@@ -123,7 +117,7 @@ const DetailPage: React.FC = () => {
   const fetchCourseInfo = async () => {
     try {
       const response = await fetch(
-        `http://apis.data.go.kr/B551011/KorService1/detailInfo1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
+        `http://apis.data.go.kr/B551011/KorService1/detailInfo1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=1942787&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
       if (response.ok) {
         const result = await response.json();
