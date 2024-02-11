@@ -1,23 +1,35 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useState } from "react";
 import styles from "@/app/styles/search.module.scss";
 import Topbar from "../components/Topbar/Topbar";
-import { useHistory } from "react-router-dom";
 
+interface SearchResultRegion {
+  name: string;
+}
 interface SearchResultList {
   addr1: string;
   addr2: string;
   cat1: string;
   cat2: string;
   title: string;
-  contentId: string;
+  firstimage: string;
+  firstimage2: string;
 }
 
 const SearchRegionPage: React.FC = () => {
+  const [searchRegion, setSearchRegion] = useState<string>("");
+  const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
   const [searchResult, setSearchResult] = useState<SearchResultList[]>([]);
+
   const [currentRegion, setCurrentRegion] = useState<string>("");
   const [currentHashtag, setCurrentHashtag] = useState<string>("");
-  const history = useHistory();
+  const handleItemClick = (title: string) => {
+    // 클릭된 항목의 정보를 사용하여 새로운 페이지 URL을 생성합니다.
+    const newPageUrl = `/detail`;
+    // 새로운 페이지로 이동합니다.
+    window.location.href = newPageUrl;
+  };
 
   const handleHashtagChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentHashtag(e.target.value);
@@ -26,19 +38,19 @@ const SearchRegionPage: React.FC = () => {
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`
+        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`, 
       );
 
       if (response.ok) {
         const result = await response.json();
-        const extractedResults: SearchResultList[] = result.response.body.items.item.map(
-          (item: any) => ({
+        const extractedResults: SearchResultList[] =
+          result.response.body.items.item.map((item: any) => ({
             addr1: item.addr1,
             addr2: item.addr2,
             title: item.title,
-            contentId: item.contentid,
           })
-        );
+          );
+          // console.log(handleSubmit);
         setSearchResult(extractedResults);
       } else {
         console.error("Error:", response.statusText);
@@ -48,12 +60,7 @@ const SearchRegionPage: React.FC = () => {
     }
   };
 
-  const handleItemClick = (contentId: string) => {
-    // 클릭된 항목의 contentId를 사용하여 새로운 페이지 URL을 생성합니다.
-    const newPageUrl = `/detail/${contentId}`;
-    // 새로운 페이지로 이동합니다.
-    history.push(newPageUrl);
-  };
+
 
   return (
     <div className={styles.container}>
@@ -92,11 +99,8 @@ const SearchRegionPage: React.FC = () => {
             </thead>
             <tbody>
               {searchResult.map((item, index) => (
-                <tr
-                  key={index}
-                  className={styles.row}
-                  onClick={() => handleItemClick(item.contentId)}
-                >
+                <tr key={index} className={styles.row} onClick={() => handleItemClick(item.title)}>
+                   {/* <td>{item.</td></td>{item.title}</td> */}
                   <td>{item.title}</td>
                   <td>{item.addr1}</td>
                   <td>{item.addr2}</td>
