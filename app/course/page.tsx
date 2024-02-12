@@ -78,24 +78,6 @@ const SearchCoursePage: React.FC = () => {
         <img src="/food.png" alt="맛코스" onClick={() => setCurrentHashtag('C0117')} />
         </div>
 
-      {/* <select
-        id="hashtagFilter"
-        className="course_hashtagFilterSelect"
-        onChange={handleHashtagChange}
-      >
-        <option value="">전체</option>
-        <option value="C0112">#가족코스</option>
-        <option value="C0113">#나홀로코스</option>
-        <option value="C0114">#힐링코스</option>
-        <option value="C0115">#도보코스</option>
-        <option value="C0116">#캠핑코스</option>
-        <option value="C0117">#맛코스</option>
-      </select> */}
-
-      {/* <button onClick={handleSubmit} className="course_formButton">
-        검색
-      </button> */}
-
       <div className={styles.resultContainer}>
         <h2 className={styles.resultTitle}></h2>
         <div className={styles.div3}>
