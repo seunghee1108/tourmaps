@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -32,6 +33,7 @@ interface SearchResultRegion {
 const SearchRegionPage: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>("");
   const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
+  
 
   const handleRegionSearch = async () => {
     try {
@@ -64,6 +66,8 @@ const SearchRegionPage: React.FC = () => {
             modifiedtime: item.modifiedtime,
             sigungucode: item.sigungucode,
             overview: item.overview,
+            firstimage: item.firstimage,
+            firstimage2: item.firstimage2,
           })
         );
         setRegionResult(items);
@@ -131,6 +135,8 @@ const SearchRegionPage: React.FC = () => {
             modifiedtime: item.modifiedtime,
             sigungucode: item.sigungucode,
             overview: item.overview, // overview 초기에 빈 문자열로 설정
+            firstimage: item.firstimage,
+            firstimage2: item.firstimage2,
           })
         );
         setRegionResult(items);
@@ -155,14 +161,110 @@ const SearchRegionPage: React.FC = () => {
           className={styles.image}
           onClick={() => setSelectedRegion("3")}
         />
+        <img
+          src="/강원.png"
+          alt="강원"
+          className={styles.image}
+          onClick={() => setSelectedRegion("32")}
+        />
+        <img
+          src="/경기도.png"
+          alt="경기도"
+          className={styles.image}
+          onClick={() => setSelectedRegion("31")}
+        />
+        <img
+          src="/경북.png"
+          alt="경북"
+          className={styles.image}
+          onClick={() => setSelectedRegion("35")}
+        />
+        <img
+          src="/경상남도.png"
+          alt="경남"
+          className={styles.image}
+          onClick={() => setSelectedRegion("36")}
+        />
+        <img
+          src="/광주.png"
+          alt="광주"
+          className={styles.image}
+          onClick={() => setSelectedRegion("5")}
+        />
+        <img
+          src="/대구.png"
+          alt="대구"
+          className={styles.image}
+          onClick={() => setSelectedRegion("4")}
+        />
+        <img
+          src="/부산.png"
+          alt="부산"
+          className={styles.image}
+          onClick={() => setSelectedRegion("6")}
+        />
+        <img
+          src="/서울.png"
+          alt="서울"
+          className={styles.image}
+          onClick={() => setSelectedRegion("1")}
+        />
+        <img
+          src="/세종.png"
+          alt="세종"
+          className={styles.image}
+          onClick={() => setSelectedRegion("8")}
+        />
+        <img
+          src="/울산.png"
+          alt="울산"
+          className={styles.image}
+          onClick={() => setSelectedRegion("7")}
+        />
+        <img
+          src="/인천.png"
+          alt="인천"
+          className={styles.image}
+          onClick={() => setSelectedRegion("2")}
+        />
+        <img
+          src="/전남.png"
+          alt="전남"
+          className={styles.image}
+          onClick={() => setSelectedRegion("38")}
+        />
+        <img
+          src="/전북.png"
+          alt="전북"
+          className={styles.image}
+          onClick={() => setSelectedRegion("37")}
+        />
+        <img
+          src="/제주.png"
+          alt="제주"
+          className={styles.image}
+          onClick={() => setSelectedRegion("39")}
+        />
+        <img
+          src="/충남.png"
+          alt="충남"
+          className={styles.image}
+          onClick={() => setSelectedRegion("34")}
+        />
+        <img
+          src="/충북.png"
+          alt="충북"
+          className={styles.image}
+          onClick={() => setSelectedRegion("33")}
+        />
       </div>
 
-      <button
+      {/* <button
         onClick={handleRegionSearch}
         className={`course_formButton ${styles.searchButton}`}
       >
         검색
-      </button>
+      </button> */}
 
       {/* <select
         id="regionFilter"
@@ -197,8 +299,8 @@ const SearchRegionPage: React.FC = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>주소</th>
-                <th>제목</th>
+                {/* <th>주소</th> */}
+                <th>TITLE</th>
                 {/* <th>contentid</th>
                 <th>areacode</th>
                 <th>booktour</th> */}
@@ -208,12 +310,14 @@ const SearchRegionPage: React.FC = () => {
                 {/* <th>contenttypeid</th> */}
                 {/* <th>createdtime</th> */}
                 {/* <th>cpyrhtDivCd</th> */}
-                <th>mapx</th>
-                <th>mapy</th>
+                <th> IMAGE</th>
+                {/* <th> firstimage2</th>  */}
+                {/* <th>mapx</th> */}
+                {/* <th>mapy</th> */}
                 {/* <th>mlevel</th> */}
                 {/* <th>modifiedtime</th>
                 <th>sigungucode</th> */}
-                <th>overview</th> {/* 추가: overview 표시 */}
+                <th>OVERVIEW</th> {/* 추가: overview 표시 */}
               </tr>
             </thead>
             <tbody>
@@ -223,7 +327,7 @@ const SearchRegionPage: React.FC = () => {
                   className={styles.row}
                   onClick={() => fetchOverview(item.contentid)}
                 >
-                  <td>{item.addr1}</td>
+                  {/* <td>{item.addr1}</td> */}
                   <td>{item.title}</td>
                   {/* <td>{item.contentid}</td>
                   <td>{item.areacode}</td>
@@ -233,15 +337,29 @@ const SearchRegionPage: React.FC = () => {
                   <td>{item.cat3}</td> */}
                   {/* <td>{item.contenttypeid}</td> */}
                   {/* <td>{item.createdtime}</td> */}
+
                   {/* <td>{item.cpyrhtDivCd}</td> */}
-                  <td>{item.mapx}</td>
-                  <td>{item.mapy}</td>
+                  <td>
+                    {item.firstimage && (
+                      <img src={item.firstimage} alt="First Image" />
+                    )}
+                  </td>
+                  {/* <td>
+                    {item.firstimage2 && (
+                      <img src={item.firstimage2} alt="Second Image" />
+                    )}
+                  </td> */}
+                  {/* <td>{item.mapx}</td> */}
+                  {/* <td>{item.mapy}</td> */}
                   {/* <td>{item.mlevel}</td> */}
                   {/* <td>{item.modifiedtime}</td>
                   <td>{item.sigungucode}</td> */}
                   {/* <td>{item.contentid}</td> */}
                   {/* <td>{item.contentid.overview}</td> */}
-                  <td>{item.overview}</td>
+                  {/* <p> Click </p> */}
+                  <td>{item.overview} 
+                  Click
+                  </td>
                 </tr>
               ))}
             </tbody>
