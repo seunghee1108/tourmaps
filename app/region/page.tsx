@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -33,7 +32,6 @@ interface SearchResultRegion {
 const SearchRegionPage: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>("");
   const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
-  
 
   const handleRegionSearch = async () => {
     try {
@@ -357,8 +355,10 @@ const SearchRegionPage: React.FC = () => {
                   {/* <td>{item.contentid}</td> */}
                   {/* <td>{item.contentid.overview}</td> */}
                   {/* <p> Click </p> */}
-                  <td>{item.overview} 
-                  Click
+                  <td>
+                    {item.overview && !item.clicked // overview가 있고 클릭되지 않았을 때
+                      ? item.overview
+                      : "Click"}
                   </td>
                 </tr>
               ))}
