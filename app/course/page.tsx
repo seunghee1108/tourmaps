@@ -67,7 +67,7 @@ const SearchCoursePage: React.FC = () => {
       <div className={styles.top}>
         <Topbar />
       </div>
-      <div className= {styles.coursebutton}>
+      <div onClick={handleSubmit} className= {styles.course_formButton}>
         <img src="/family.png" alt="가족코스" onClick={() => setCurrentHashtag('C0112')} />
         <img src="/alone.png" alt="나홀로코스" onClick={() => setCurrentHashtag('C0113')} />
         <img src="/힐링.png" alt="힐링코스" onClick={() => setCurrentHashtag('C0114')} />
@@ -92,9 +92,9 @@ const SearchCoursePage: React.FC = () => {
         <option value="C0117">#맛코스</option>
       </select> */}
 
-      <button onClick={handleSubmit} className="course_formButton">
+      {/* <button onClick={handleSubmit} className="course_formButton">
         검색
-      </button>
+      </button> */}
 
       <div className={styles.resultContainer}>
         <h2 className={styles.resultTitle}></h2>
@@ -102,9 +102,9 @@ const SearchCoursePage: React.FC = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>제목</th>
-                <th>주소1</th>
-                <th>주소2</th>
+                <th>TITLE</th>
+                <th>ADDRESS</th>
+                {/* <th>주소2</th> */}
               </tr>
             </thead>
             <tbody>
@@ -117,7 +117,7 @@ const SearchCoursePage: React.FC = () => {
                   {/* <Link to={`/detail/${contentId}`}>디테일 페이지로 이동</Link> */}
                   <td>{item.title}</td>
                   <td>{item.addr1}</td>
-                  <td>{item.addr2}</td>
+                  {/* <td>{item.addr2}</td> */}
                 </tr>
               ))}
             </tbody>
