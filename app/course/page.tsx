@@ -69,14 +69,28 @@ const SearchCoursePage: React.FC = () => {
       </div>
       <div onClick={handleSubmit} className= {styles.course_formButton}>
         <img src="/family.png" alt="가족코스" onClick={() => setCurrentHashtag('C0112')} />
-        <img src="/alone.png" alt="나홀로코스" onClick={() => setCurrentHashtag('C0113')} />
-        <img src="/힐링.png" alt="힐링코스" onClick={() => setCurrentHashtag('C0114')} />
+        <img src="/travel.png" alt="나홀로코스" onClick={() => setCurrentHashtag('C0113')} />
+        <img src="/healing.png" alt="힐링코스" onClick={() => setCurrentHashtag('C0114')} />
 
-        <img src="/travel.png" alt="도보코스" onClick={() => setCurrentHashtag('C0115')} />
+        <img src="/walk.png" alt="도보코스" onClick={() => setCurrentHashtag('C0115')} />
 
-        <img src="/tent.png" alt="캠핑코스" onClick={() => setCurrentHashtag('C0116')} />
+        <img src="/camping.png" alt="캠핑코스" onClick={() => setCurrentHashtag('C0116')} />
         <img src="/food.png" alt="맛코스" onClick={() => setCurrentHashtag('C0117')} />
         </div>
+
+              {/* <select
+        id="hashtagFilter"
+        className="course_hashtagFilterSelect"
+        onChange={handleHashtagChange}
+      >
+        <option value="">전체</option>
+        <option value="C0112">#가족코스</option>
+        <option value="C0113">#나홀로코스</option>
+        <option value="C0114">#힐링코스</option>
+        <option value="C0115">#도보코스</option>
+        <option value="C0116">#캠핑코스</option>
+        <option value="C0117">#맛코스</option>
+      </select> */}
 
       <div className={styles.resultContainer}>
         <h2 className={styles.resultTitle}></h2>
