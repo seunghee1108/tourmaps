@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+.top {
+  height: 15vh;
+}
+
+.resultTitle {
+  font-size: 1.5rem;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
+
+}
+
+.div3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.resultContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  text-align: center;
+
+  font-family: 'Acme', sans-serif;
+
+}
+
+.table {
+  // display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  // text-align: left;
+  // border-bottom: 1px solid #e5e5e5; 
+  font-family: 'Acme', sans-serif;
+
+}
+
+.table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  font-family: 'Acme', sans-serif;
+
+  text-transform: uppercase;
+  color: #333;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.table tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+.course_formButton {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 100px;
+    /* 원하는 너비 설정 */
+    height: 100px;
+    /* 원하는 높이 설정 */
+    border-radius: 50%;
+    /* 이미지를 동그랗게 만듭니다. */
+    object-fit: cover;
+    /* 이미지를 부모 요소에 맞게 잘라서 보여줍니다. */
+    padding: 30px;
+    cursor: pointer;
+    /* 마우스 커서를 포인터로 변경하여 클릭 가능한 상태로 표시 */
+  }
+}
