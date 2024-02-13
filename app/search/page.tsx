@@ -64,7 +64,7 @@ const SearchPage: React.FC = () => {
           type="text"
           value={searchKeyword}
           onChange={handleInputChange}
-          placeholder="검색어를 입력하세요"
+          placeholder=" 검색어를 입력하세요."
           className={styles.searchInput}
         />
         <button onClick={handleSearch} className={styles.searchButton}>
@@ -78,13 +78,13 @@ const SearchPage: React.FC = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>제목</th>
-                <th>주소1</th>
-                <th>주소2</th>
-                <th>카테고리1</th>
-                <th>카테고리2</th>
-                <th>이미지1</th>
-                <th>이미지2</th>
+                <th>TITLE</th>
+                <th>ADDRESS</th>
+                {/* <th>주소2</th> */}
+                {/* <th>카테고리1</th> */}
+                {/* <th>카테고리2</th> */}
+                <th>IMAGE</th>
+                {/* <th>이미지2</th> */}
               </tr>
             </thead>
             <tbody>
@@ -92,18 +92,18 @@ const SearchPage: React.FC = () => {
                 <tr key={index} className={styles.row}>
                   <td>{item.title}</td>
                   <td>{item.addr1}</td>
-                  <td>{item.addr2}</td>
+                  {/* <td>{item.addr2}</td>
                   <td>{item.cat1}</td>
-                  <td>{item.cat2}</td>
-                  <td>{item.firstimage}</td>
+                  <td>{item.cat2}</td> */}
+                  {/* <td>{item.firstimage}</td> */}
 
-                  {/* <td>
+                  <td>
                   {item.firstimage && (
                     <img src={item.firstimage} alt={`이미지${index + 1}`} />
                   )}
-                </td> */}
+                </td>
 
-                  <td>{item.firstimage2}</td>
+                  {/* <td>{item.firstimage2}</td> */}
                 </tr>
               ))}
             </tbody>
