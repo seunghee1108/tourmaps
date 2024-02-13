@@ -39,18 +39,9 @@ function Topbar() {
         <Link href="/" >TOUR MAPS</Link>
       </div>
       <div className={styles.div3}>
-        {isLoggedIn ? (
-          <>
-            <p>{`${name} 님`}</p>
-            <Link href="/mypage/myinfo" >MYPAGE</Link>
-            <button className={styles.link} onClick={handleLogout}>LOGOUT</button>
-          </>
-        ) : (
-          <>
-            <Link className={styles.link} href="/signup">SIGN UP</Link>
-            <Link className={styles.link} href="/login">LOGIN</Link>
-          </>
-        )}
+      <Link className={styles.link} href="/region">REGION</Link>
+      <Link className={styles.link} href="/course">COURSE</Link>
+
       </div>
     </div>
   );
