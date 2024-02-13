@@ -1,18 +1,4 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  max-width: 100%;
-}
-
-.top {
-  height: 14vh;
-}
-
-// .title {
-//   font-size: 1rem;
-//   margin-bottom: 30px;
-//   justify-content: center;
-// }
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 
 .searchContainer {
   justify-content: center;
@@ -36,17 +22,16 @@
   height: 40px;
   border: none;
   border-radius: 20px;
-  background-color: #007bff;
+  background-color: #365486;
   color: #fff;
   font-size: 1rem;
   cursor: pointer;
+  margin: 20px;
 }
 
 .searchButton:hover {
-  background-color: #0056b3;
+  background-color: #0F1035;
 }
-
-
 
 .resultTitle {
   font-size: 1.5rem;
@@ -76,72 +61,111 @@
   margin: 5px 0;
 }
 
-.resultContainer {
+
+
+.course_regionFilterSelect {
+  width: 200px;
+  /* 선택 박스의 너비 */
+  padding: 8px;
+  /* 선택 박스 내부 여백 */
+  font-size: 16px;
+  /* 폰트 크기 */
+  border: 1px solid #ccc;
+  /* 테두리 스타일 */
+  border-radius: 4px;
+  /* 테두리의 둥근 정도 */
+  outline: none;
+  /* 포커스시 테두리 제거 */
+  background-color: #fff;
+  /* 배경색 */
+  cursor: pointer;
+  /* 마우스 커서 모양 */
+  transition: border-color 0.3s ease;
+  /* 테두리 색상 변화에 대한 전환 효과 */
+}
+
+// /* 포커스시 테두리 색상 변경 */
+.course_regionFilterSelect:focus {
+  border-color: #365486;
+  /* 포커스시 테두리 색상 */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+.top {
+  height: 12vh;
+}
+
+.resultTitle {
+  font-size: 1.5rem;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
+
+}
+
+.div3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow-x: auto;
+  text-align: center;
+}
+
+.resultContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  text-align: center;
+
+  font-family: 'Acme', sans-serif;
+
 }
 
 .table {
-  width: 100%;
+  // display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
   border-collapse: collapse;
-  border: 1px solid #ddd;
-  text-align: center;
 }
 
-.table th, .table td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  text-align: center;
+.table th,
+.table td {
+  padding: 12px;
+  // text-align: left;
+  // border-bottom: 1px solid #e5e5e5; 
+  font-family: 'Acme', sans-serif;
 
 }
 
 .table th {
-  background-color: #f2f2f2;
+  background-color: #f5f5f5;
+  font-weight: bold;
+  font-family: 'Acme', sans-serif;
+
+  text-transform: uppercase;
+  color: #333;
 }
 
 .table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #fafafa;
 }
 
 .table tbody tr:hover {
-  background-color: #ddd;
+  background-color: #f0f0f0;
 }
 
-.row img {
-  max-width: 50px;
-  height: auto;
-}
-
-.course_regionFilterSelect {
-  width: 200px; /* 선택 박스의 너비 */
-  padding: 8px; /* 선택 박스 내부 여백 */
-  font-size: 16px; /* 폰트 크기 */
-  border: 1px solid #ccc; /* 테두리 스타일 */
-  border-radius: 4px; /* 테두리의 둥근 정도 */
-  outline: none; /* 포커스시 테두리 제거 */
-  background-color: #fff; /* 배경색 */
-  cursor: pointer; /* 마우스 커서 모양 */
-  transition: border-color 0.3s ease; /* 테두리 색상 변화에 대한 전환 효과 */
-}
-
-/* 포커스시 테두리 색상 변경 */
-.course_regionFilterSelect:focus {
-  border-color: #007bff; /* 포커스시 테두리 색상 */
-}
-
-.course_hashtagFilterSelect {
-  width: 200px; /* 선택 박스의 너비 */
-  padding: 8px; /* 선택 박스 내부 여백 */
-  font-size: 16px; /* 폰트 크기 */
-  border: 1px solid #ccc; /* 테두리 스타일 */
-  border-radius: 4px; /* 테두리의 둥근 정도 */
-  outline: none; /* 포커스시 테두리 제거 */
-  background-color: #fff; /* 배경색 */
-  cursor: pointer; /* 마우스 커서 모양 */
-  transition: border-color 0.3s ease; /* 테두리 색상 변화에 대한 전환 효과 */
-}
-
-.image {
-  width: 40px; /* 원하는 너비로 조정 */
-  height: auto; /* 이미지 비율에 맞게 자동으로 높이 조정 */
+.td img {
+  width: 20px;
+  height: auto; // 이미지의 높이를 자동으로 조정합니다.
+  // cursor: pointer;
 }
