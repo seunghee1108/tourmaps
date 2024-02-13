@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "@/app/styles/index.module.scss";
 import Topbar from "@/app/components/Topbar/Topbar";
+import Slider from "./slider/page";
 
 function Index() {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -16,48 +17,13 @@ function Index() {
     }
   }, [hasWindow]);
 
-  const serviceKey =
-    "WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D";
-
-  const search = async () => {
-    try {
-      const response = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?MobileOS=ETC&MobileApp=%EC%95%84%EC%95%84&_type=json&keyword=${searchKeyword}&serviceKey=${serviceKey}`
-      );
-      if (response.ok) {
-        const result = await response.json();
-        const extractedResults = result.response.body.items.item.map(
-          (item) => ({
-            addr1: item.addr1,
-            addr2: item.addr2,
-            cat1: item.cat1,
-            cat2: item.cat2,
-            title: item.title,
-            firstimage: item.firstimage,
-            firstimage2: item.firstimage2,
-          })
-        );
-        setSearchResult(JSON.stringify(extractedResults, null, 2));
-      } else {
-        console.error("Error:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    setSearchKeyword(e.target.value.trim()); // 검색어 업데이트
-  };
-
   return (
     <div className={styles.container}>
-      <div className={styles.top}>
+      <div className={styles.banner}>
         <Topbar />
       </div>
-      <div className={`${styles.div} ${styles.gray}`}>
-           {/* 비디오 */}
-       {hasWindow && (
+      <div className={`${styles.div} ${styles.box}`}>
+        {hasWindow && (
           <video
             className={styles.video}
             autoPlay={true}
@@ -65,7 +31,7 @@ function Index() {
             loop={true}
             src={"/beach.mp4"}
           />
-        )} 
+        )}
         <div className={styles.box1}></div>
       </div>
 
@@ -75,19 +41,18 @@ function Index() {
             <input
               type="text"
               id="searchInput"
-              placeholder="🔍  지금 검색하러 가기"
+              placeholder=" 🔍  키워드를 입력하세요 ! "
               className={styles.search}
             />
           </form>
         </Link>
       </div>
-
-      <div className={`${styles.div} ${styles.yellow}`}></div>
-      <div className={`${styles.div} ${styles.purple}`}></div>
-      <div className={`${styles.div} ${styles.blue}`}></div>
+      <Slider />
+      <div className={`${styles.div} ${styles.box2}`}></div>
+      <div className={`${styles.div} ${styles.box3}`}></div>
+      <div className={`${styles.div} ${styles.box4}`}></div>
     </div>
   );
 }
 
 export default Index;
-
