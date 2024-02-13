@@ -1,4 +1,4 @@
-// @import url('https://fonts.googleapis.com/css2?family=Grandiflora+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 
 .topbar {
   width: 100vw;
@@ -7,7 +7,7 @@
   display: flex;
   // font-size: 0.5rem;
   justify-content: space-between;
-  color: #163020;
+  color: #365486;
   background-color: #b6c4b610;
   max-width: 100%;
   position: fixed;
@@ -25,17 +25,17 @@
   width: 20vw;
   height: 12vh;
   font-weight: bolder;
-  font-size: 2rem;
+  font-size: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #638889;
   cursor: pointer;
-  font-family: 'Grandiflora One';
+  font-family: 'Acme', sans-serif;
 
   a {
-    text-shadow: 0 0 5px #d5f5f6;
-    color: #163020;
+    text-shadow: 0 0 5px #DCF2F1;
+    color:#365486;
     text-decoration-line: none;
 
     &:hover {
@@ -47,10 +47,12 @@
 .div3 {
   width: 20vw;
   height: 12vh;
-  color: #163020;
+  color: #365486;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  font-family: 'Acme', sans-serif;
+
 
   p {
     width: 16vw;
@@ -59,6 +61,8 @@
     padding: 0;
     font-weight: 800;
     text-align: center;
+  font-family: 'Acme', sans-serif;
+
   }
 
   a,
@@ -68,8 +72,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #eef0e59c;
-    color: #18271d;
+    background-color:#EEF5FF;
+    color: #365486;
     cursor: pointer;
     text-decoration: none;
     border-radius: 5px;
@@ -84,6 +88,7 @@
 
 
 .link {
+  text-align: center;
   text-decoration: none;
   color: white;
   margin-left: 2vw;
