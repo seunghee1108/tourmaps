@@ -256,41 +256,6 @@ const SearchRegionPage: React.FC = () => {
           onClick={() => setSelectedRegion("33")}
         />
       </div>
-
-      {/* <button
-        onClick={handleRegionSearch}
-        className={`course_formButton ${styles.searchButton}`}
-      >
-        검색
-      </button> */}
-
-      {/* <select
-        id="regionFilter"
-        className={`course_regionFilterSelect ${styles.select}`}
-        onChange={(e) => setSelectedRegion(e.target.value)}
-      >
-        <option value="">전체</option>
-        <option value="1">서울</option>
-        <option value="6">부산</option>
-        <option value="4">대구</option>
-        <option value="2">인천</option>
-        <option value="5">광주</option>
-        <option value="3">대전</option>
-        <option value="7">울산</option>
-        <option value="8">세종</option>
-        <option value="31">경기</option>
-        <option value="32">강원</option>
-        <option value="33">충북</option>
-        <option value="34">충남</option>
-        <option value="35">경북</option>
-        <option value="36">경남</option>
-        <option value="37">전북</option>
-        <option value="38">전남</option>
-        <option value="39">제주</option>
-      </select>
-      <button onClick={handleRegionSearch} className="course_formButton">
-        검색
-      </button> */}
       <div className={styles.resultContainer}>
         <h2 className={styles.resultTitle}></h2>
         <div className={styles.div3}>
