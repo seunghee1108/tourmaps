@@ -1,9 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "@/app/styles/course.module.scss";
 import Topbar from "../components/Topbar/Topbar";
-import Link from "next/link";
+import { useParams } from "react-router-dom";
+import Link from 'next/link';
+import { useRouter, usePathname } from "next/navigation";
 
 interface SearchResultRegion {
   name: string;
@@ -17,50 +19,45 @@ interface SearchResultList {
   title: string;
   firstimage: string;
   firstimage2: string;
-  contentId: string;
+  contentid: string;
 }
 
-const SearchCoursePage: React.FC = () => {
-  const [selectedContentId, setSelectedContentId] = useState<string>("");
-  const [searchRegion, setSearchRegion] = useState<string>("");
-  const [regionResult, setRegionResult] = useState<SearchResultRegion[]>([]);
+const SearchCoursePage = () => {
   const [searchResult, setSearchResult] = useState<SearchResultList[]>([]);
   const [currentRegion, setCurrentRegion] = useState<string>("");
   const [currentHashtag, setCurrentHashtag] = useState<string>("");
-  
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const handleItemClick = (contentId: string) => {
-    setSelectedContentId(contentId);
-    // 여행지의 contentid를 추출하고, DetailPage로 이동
-    window.location.href = `/detail/${encodeURIComponent(contentId)}`; // 경로 수정 필요
-  };
 
-  const handleHashtagChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrentHashtag(e.target.value);
-  };
+  useEffect(() => {
+    fetchContent();
+  }, [currentRegion, currentHashtag]);
 
-  const handleSubmit = async () => {
+  const fetchContent = async () => {
     try {
       const response = await fetch(
         `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=Q&areaCode=${currentRegion}&contentTypeId=25&cat1=C01&cat2=${currentHashtag}&_type=json`
       );
-
       if (response.ok) {
-        const result = await response.json();
-        const extractedResults: SearchResultList[] =
-          result.response.body.items.item.map((item: any) => ({
-            addr1: item.addr1,
-            addr2: item.addr2,
-            title: item.title,
-            contentId: item.contentId,
-          }));
-        setSearchResult(extractedResults);
+        const data = await response.json();
+        const items = data.response.body.items.item;
+        setSearchResult(items);
       } else {
-        console.error("Error:", response.statusText);
+        console.error("Failed to fetch data");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+  };
+
+  const handleHashtagClick = (hashtag: string) => {
+    setCurrentHashtag(hashtag);
+  };
+
+  const handleItemClick = (contentId: string) => {
+    // contentId를 전달하고 DetailPage로 이동
+    router.push(`/detail/${contentId}`); // 경로 수정 필요
   };
 
   return (
@@ -68,54 +65,38 @@ const SearchCoursePage: React.FC = () => {
       <div className={styles.top}>
         <Topbar />
       </div>
-      <div onClick={handleSubmit} className={styles.course_formButton}>
+      <div className={styles.course_formButton}>
         <img
           src="/family.png"
           alt="가족코스"
-          onClick={() => setCurrentHashtag("C0112")}
+          onClick={() => handleHashtagClick("C0112")}
         />
         <img
           src="/travel.png"
           alt="나홀로코스"
-          onClick={() => setCurrentHashtag("C0113")}
+          onClick={() => handleHashtagClick("C0113")}
         />
         <img
           src="/healing.png"
           alt="힐링코스"
-          onClick={() => setCurrentHashtag("C0114")}
+          onClick={() => handleHashtagClick("C0114")}
         />
-
         <img
           src="/walk.png"
           alt="도보코스"
-          onClick={() => setCurrentHashtag("C0115")}
+          onClick={() => handleHashtagClick("C0115")}
         />
-
         <img
           src="/camping.png"
           alt="캠핑코스"
-          onClick={() => setCurrentHashtag("C0116")}
+          onClick={() => handleHashtagClick("C0116")}
         />
         <img
           src="/food.png"
           alt="맛코스"
-          onClick={() => setCurrentHashtag("C0117")}
+          onClick={() => handleHashtagClick("C0117")}
         />
       </div>
-
-      {/* <select
-        id="hashtagFilter"
-        className="course_hashtagFilterSelect"
-        onChange={handleHashtagChange}
-      >
-        <option value="">전체</option>
-        <option value="C0112">#가족코스</option>
-        <option value="C0113">#나홀로코스</option>
-        <option value="C0114">#힐링코스</option>
-        <option value="C0115">#도보코스</option>
-        <option value="C0116">#캠핑코스</option>
-        <option value="C0117">#맛코스</option>
-      </select> */}
 
       <div className={styles.resultContainer}>
         <h2 className={styles.resultTitle}></h2>
@@ -125,29 +106,16 @@ const SearchCoursePage: React.FC = () => {
               <tr>
                 <th>TITLE</th>
                 <th>ADDRESS</th>
-                {/* <th>주소2</th> */}
               </tr>
             </thead>
             <tbody>
               {searchResult.map((item, index) => (
-                <tr
-                  key={index}
-                  className={styles.row}
-                  onClick={() => handleItemClick(item.contentId)}
-                >
-            <td>
-      {item.contentId ? (
-        <Link href={`/detail/${encodeURIComponent(item.contentId)}`}>
-          {item.title}
-        </Link>
-      ) : (
-        <span>해당 항목의 contentId가 없습니다.</span>
-      )}
-    </td>
-                  {/* <Link to={`/detail/${contentId}`}>디테일 페이지로 이동</Link> */}
-                  <td>{item.title}</td>
-                  <td>{item.addr1}</td>
-                  {/* <td>{item.addr2}</td> */}
+                <tr key={index} className={styles.row} onClick={() => handleItemClick(item.contentid)}>
+                  <td>
+                    
+                      {item.title}
+                  </td>
+                  <td>{item.contentid}</td>
                 </tr>
               ))}
             </tbody>
