@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import styles from "@/app/styles/search.module.scss";
+import styles from "@/app/styles/course.module.scss";
 import Topbar from "../components/Topbar/Topbar";
+import { useSearchParams } from "next/navigation";
 
 interface SearchResultDetail {
   title: string;
@@ -19,100 +20,98 @@ interface SearchResultInfo {
   subdetailoverview: string;
 }
 
-const DetailPage: React.FC<{ contentId: string }> = ({ contentId }) => {
+const DetailPage: React.FC = () => {
   const [commonInfo, setCommonInfo] = useState<SearchResultDetail[]>([]);
-  const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]);
+  const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]); 
   const [courseInfo, setCourseInfo] = useState<SearchResultInfo[]>([]);
 
+  // const searchParams = useSearchParams()
+
+  const params = useSearchParams();
+  const contentId = params.get('contentId');
+
+  // const params = useSearchParams();
+  // const contentId = params.get('contentId');
+// console.log(contentId);
+
   useEffect(() => {
+    // 공통 정보 가져오는 API 호출
     fetchCommonInfo();
+    // 소개 정보 가져오는 API 호출
     fetchIntroInfo();
-    fetchCourseInfo(contentId);
-  }, [contentId]);
+    // 코스 정보 가져오는 API 호출
+    fetchCourseInfo();
+  }, []);
 
   const fetchCommonInfo = async () => {
     try {
-      const commonResponse = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/detailCommon1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&_type=json`,
-        {
-          headers: {
-            Accept: "application/json",
-          },
-        }
+      const response = await fetch(
+        `http://apis.data.go.kr/B551011/KorService1/detailCommon1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&_type=json`
       );
-      if (commonResponse.ok) {
-        const commonResult = await commonResponse.json();
-        const commonItems: SearchResultDetail[] = commonResult.response.body.items.item.map(
+      if (response.ok) {
+        const result = await response.json();
+        const items: SearchResultDetail[] = result.response.body.items.item.map(
           (item: any) => ({
             title: item.title,
             firstimage: item.firstimage,
             overview: item.overview,
           })
         );
-        setCommonInfo(commonItems);
+        setCommonInfo(items);
       } else {
-        console.error("Error fetching common info:", commonResponse.statusText);
+        console.error("Error:", response.statusText);
       }
     } catch (error) {
-      console.error("Error fetching common info:", error);
+      console.error("Error fetching data:", error);
     }
   };
 
-  const fetchIntroInfo =  async (contentId: string) => {
+  const fetchIntroInfo = async () => {
     try {
-      const introResponse = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
+      const response = await fetch(
+        `http://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&ccontentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
-      if (introResponse.ok) {
-        const introResult = await introResponse.json();
-  
-        // Check if 'items' field exists and is an array
-        if (introResult.response.body.items && Array.isArray(introResult.response.body.items.item)) {
-          const introItems: SearchResultIntro[] = introResult.response.body.items.item.map(
-            (item: any) => ({
-              distance: item.distance,
-              taketime: item.taketime,
-            })
-          );
-          setIntroInfo(introItems);
-        } else {
-          console.error("No valid items found in the response");
-        }
+
+      if (response.ok) {
+        const result = await response.json();
+        const items: SearchResultIntro[] = result.response.body.items.item.map(
+          (item: any) => ({
+            distance: item.distance,
+            taketime: item.taketime,
+          })
+        );
+        setIntroInfo(items);
       } else {
-        console.error("Error fetching introduction info:", introResponse.statusText);
+        console.error("Error:", response.statusText);
       }
     } catch (error) {
-      console.error("Error fetching introduction info:", error);
+      console.error("Error fetching data:", error);
     }
   };
-  
-  
-  const fetchCourseInfo =  async (contentId: string) => {
+
+  const fetchCourseInfo = async () => {
     try {
-      const courseResponse = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/detailInfo1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
+      const response = await fetch(
+        `http://apis.data.go.kr/B551011/KorService1/detailInfo1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
-      if (courseResponse.ok) {
-        const courseResult = await courseResponse.json();
-        const courseItems: SearchResultInfo[] = courseResult.response.body.items.item.map(
+      if (response.ok) {
+        const result = await response.json();
+        const items: SearchResultInfo[] = result.response.body.items.item.map(
           (item: any) => ({
             subname: item.subname,
             subdetailoverview: item.subdetailoverview,
           })
         );
-        setCourseInfo(courseItems);
+        setCourseInfo(items);
       } else {
-        console.error("Error fetching course info:", courseResponse.statusText);
+        console.error("Error:", response.statusText);
       }
     } catch (error) {
-      console.error("Error fetching course info:", error);
+      console.error("Error fetching data:", error);
     }
   };
-  
 
-  
   return (
-
     <div className={styles.container}>
       <div className={styles.top}>
         <Topbar />
@@ -120,30 +119,35 @@ const DetailPage: React.FC<{ contentId: string }> = ({ contentId }) => {
       <div>
         <h1>Detail Page</h1>
         {/* 공통 정보 출력 */}
-        {commonInfo && commonInfo.map((info, index) => (
-          <div key={index}>
-            <h2>Common Info</h2>
-            <p>Title: {info.title}</p>
-            <img src={info.firstimage} alt="Common Info Image" />
-            <p>Overview: {info.overview}</p>
-          </div>
-        ))}
+        {commonInfo &&
+          commonInfo.map((info, index) => (
+            <div key={index}>
+              <h2>공통 정보</h2>
+              <p>Title: {info.title}</p>
+              <img src={info.firstimage} alt="Common Info Image" />
+              <p>Overview: {info.overview}</p>
+            </div>
+          ))}
         {/* 소개 정보 출력 */}
-        {introInfo && introInfo.map((info, index) => (
-          <div key={index}>
-            <h2>Introduction Info</h2>
-            <p>Distance: {info.distance}</p>
-            <p>Take Time: {info.taketime}</p>
-          </div>
-        ))}
+        {introInfo &&
+          introInfo.map((info, index) => (
+            <div key={index}>
+              <h2>소개 정보</h2>
+              <p>Distance: {info.distance}</p>
+              <p>Take Time: {info.taketime}</p>
+              {/* 여기에 소개 정보를 출력하는 코드 추가 */}
+            </div>
+          ))}
         {/* 코스 정보 출력 */}
-        {courseInfo && courseInfo.map((info, index) => (
-          <div key={index}>
-            <h2>Course Info</h2>
-            <p>Subname: {info.subname}</p>
-            <p>Subdetailoverview: {info.subdetailoverview}</p>
-          </div>
-        ))}
+        {courseInfo &&
+          courseInfo.map((info, index) => (
+            <div key={index}>
+              <h2>코스 정보</h2>
+              <p>Subname: {info.subname}</p>
+              <p>Subdetailoverview: {info.subdetailoverview}</p>
+              {/* 여기에 코스 정보를 출력하는 코드 추가 */}
+            </div>
+          ))}
       </div>
     </div>
   );
