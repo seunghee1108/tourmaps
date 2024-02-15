@@ -3,9 +3,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "@/app/styles/course.module.scss";
 import Topbar from "../components/Topbar/Topbar";
-import { useParams } from "react-router-dom";
-import Link from 'next/link';
-import { useRouter, usePathname } from "next/navigation";
 
 interface SearchResultRegion {
   name: string;
@@ -26,13 +23,12 @@ const SearchCoursePage = () => {
   const [searchResult, setSearchResult] = useState<SearchResultList[]>([]);
   const [currentRegion, setCurrentRegion] = useState<string>("");
   const [currentHashtag, setCurrentHashtag] = useState<string>("");
-  const router = useRouter();
-  const pathname = usePathname();
 
+  // const [params] = useSearchParams();
 
   useEffect(() => {
     fetchContent();
-  }, [currentRegion, currentHashtag]);
+  }, [currentRegion, currentHashtag ]);
 
   const fetchContent = async () => {
     try {
@@ -57,7 +53,7 @@ const SearchCoursePage = () => {
 
   const handleItemClick = (contentId: string) => {
     // contentId를 전달하고 DetailPage로 이동
-    router.push(`/detail/${contentId}`); // 경로 수정 필요
+    window.location.href = `/detail/?contentId=${contentId}`; // 경로 수정 필요
   };
 
   return (
