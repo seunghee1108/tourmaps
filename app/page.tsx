@@ -7,8 +7,8 @@ import Topbar from "@/app/components/Topbar/Topbar";
 import Slider from "./slider/page";
 
 function Index() {
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [searchResult, setSearchResult] = useState("");
+  // const [searchKeyword, setSearchKeyword] = useState("");
+  // const [searchResult, setSearchResult] = useState("");
   const [hasWindow, setHasWindow] = useState(false);
 
   useEffect(() => {
@@ -48,8 +48,8 @@ function Index() {
         </Link>
       </div>
       <Slider />
-      <div className={`${styles.div} ${styles.box2}`}></div>
-      <div className={`${styles.div} ${styles.box3}`}></div>
+      {/* <div className={`${styles.div} ${styles.box2}`}></div> */}
+      {/* <div className={`${styles.div} ${styles.box3}`}></div> */}
       <div className={`${styles.div} ${styles.box4}`}></div>
     </div>
   );
