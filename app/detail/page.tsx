@@ -1,6 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable react/no-unescaped-entities */
 "use client";
+
 import React, { useState, useEffect } from "react";
 import "/app/globals.css";
 import styles from "@/app/styles/detail.module.scss";
@@ -28,14 +27,8 @@ const DetailPage: React.FC = () => {
   const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]);
   const [courseInfo, setCourseInfo] = useState<SearchResultInfo[]>([]);
 
-  // const searchParams = useSearchParams()
-
   const params = useSearchParams();
   const contentId = params.get("contentId");
-
-  // const params = useSearchParams();
-  // const contentId = params.get('contentId');
-  // console.log(contentId);
 
   useEffect(() => {
     // 공통 정보 가져오는 API 호출
@@ -74,7 +67,6 @@ const DetailPage: React.FC = () => {
       const response = await fetch(
         `http://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
-
       if (response.ok) {
         const result = await response.json();
         const items: SearchResultIntro[] = result.response.body.items.item.map(
@@ -115,51 +107,65 @@ const DetailPage: React.FC = () => {
   };
 
   return (
+    // topbar
     <div className={styles.container}>
       <div className={styles.top}>
         <Topbar />
       </div>
 
-        <img src="/location.png" alt="a" className={styles.location} />
+      {/* location */}
+      <img src="/location.png" alt="a" className={styles.location} />
+
+      {/* <h2>공통 정보</h2> */}
       <div className={styles.box}>
-        {/* <h2>공통 정보</h2> */}
         {commonInfo &&
           commonInfo.map((info, index) => (
             <div key={index}>
-              <h2>" {info.title} "</h2>
-              <img
-                src={info.firstimage}
-                alt="Common Info Image"
-                className={styles.image}
-              />
-              <p className={styles.customFont}>{info.overview}</p>
-            </div>
-          ))}
-      {/* </div> */}
+              <div className={styles.title}>
+                <h2>&quot;{info.title}&quot;</h2>
+              </div>
 
+              <div className={styles.imageBox}>
+                <img
+                  src={info.firstimage}
+                  alt="Common Info Image"
+                  className={styles.image}
+                />
+              </div>
 
-      {/* <div className={styles.box2}> */}
-      <img src="/time.png" alt="a" className={styles.course} />
+              {/* <h2>상세 정보</h2> */}
+              <div className={styles.box1}>
+                <div className={styles.box2}>
+                  <div className={styles.contentContainer}>
+                    <img src="/time.png" alt="a" className={styles.time} />
+                    <div className={styles.textContainer}>
+                      {introInfo &&
+                        introInfo.map((info, index) => (
+                          <div key={index} className={styles.ptag}>
+                            <p>총 거리 : {info.distance}</p>
+                            <p>소요시간 : {info.taketime}</p>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                </div>
 
-        {/* <h2>소개 정보</h2> */}
-        {introInfo &&
-          introInfo.map((info, index) => (
-            <div key={index}>
-              <p className={styles.customFont}>Distance: {info.distance}</p>
-              <p className={styles.customFont}>Take Time: {info.taketime}</p>
+                <div className={styles.overView}>{info.overview}</div>
+              </div>
             </div>
           ))}
       </div>
 
+      {/* <h2>코스 정보</h2> */}
       <img src="/course.png" alt="a" className={styles.course} />
-      <div className={styles.box3}>
-        {/* <h2>COURSE</h2> */}
+      <div className={styles.box4}>
         {courseInfo &&
           courseInfo.map((info, index) => (
-            <div key={index}>
-               <div className={styles.card}>
+            <div key={index} className={styles.card}>
               <p className={styles.subName}>{info.subname}</p>
-              <p className={styles.customFont}>{info.subdetailoverview}</p></div>
+              <div className={styles.content}>
+                <p>{info.subdetailoverview}</p>
+              </div>
             </div>
           ))}
       </div>
