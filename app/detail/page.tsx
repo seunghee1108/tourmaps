@@ -1,6 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import React, { useState, useEffect } from "react";
-import styles from "@/app/styles/course.module.scss";
+import "/app/globals.css";
+import styles from "@/app/styles/detail.module.scss";
 import Topbar from "../components/Topbar/Topbar";
 import { useSearchParams } from "next/navigation";
 
@@ -22,17 +25,17 @@ interface SearchResultInfo {
 
 const DetailPage: React.FC = () => {
   const [commonInfo, setCommonInfo] = useState<SearchResultDetail[]>([]);
-  const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]); 
+  const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]);
   const [courseInfo, setCourseInfo] = useState<SearchResultInfo[]>([]);
 
   // const searchParams = useSearchParams()
 
   const params = useSearchParams();
-  const contentId = params.get('contentId');
+  const contentId = params.get("contentId");
 
   // const params = useSearchParams();
   // const contentId = params.get('contentId');
-// console.log(contentId);
+  // console.log(contentId);
 
   useEffect(() => {
     // 공통 정보 가져오는 API 호출
@@ -69,7 +72,7 @@ const DetailPage: React.FC = () => {
   const fetchIntroInfo = async () => {
     try {
       const response = await fetch(
-        `http://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&ccontentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
+        `http://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
 
       if (response.ok) {
@@ -116,36 +119,47 @@ const DetailPage: React.FC = () => {
       <div className={styles.top}>
         <Topbar />
       </div>
-      <div>
-        <h1>Detail Page</h1>
-        {/* 공통 정보 출력 */}
+
+        <img src="/location.png" alt="a" className={styles.location} />
+      <div className={styles.box}>
+        {/* <h2>공통 정보</h2> */}
         {commonInfo &&
           commonInfo.map((info, index) => (
             <div key={index}>
-              <h2>공통 정보</h2>
-              <p>Title: {info.title}</p>
-              <img src={info.firstimage} alt="Common Info Image" />
-              <p>Overview: {info.overview}</p>
+              <h2>" {info.title} "</h2>
+              <img
+                src={info.firstimage}
+                alt="Common Info Image"
+                className={styles.image}
+              />
+              <p className={styles.customFont}>{info.overview}</p>
             </div>
           ))}
-        {/* 소개 정보 출력 */}
+      {/* </div> */}
+
+
+      {/* <div className={styles.box2}> */}
+      <img src="/time.png" alt="a" className={styles.course} />
+
+        {/* <h2>소개 정보</h2> */}
         {introInfo &&
           introInfo.map((info, index) => (
             <div key={index}>
-              <h2>소개 정보</h2>
-              <p>Distance: {info.distance}</p>
-              <p>Take Time: {info.taketime}</p>
-              {/* 여기에 소개 정보를 출력하는 코드 추가 */}
+              <p className={styles.customFont}>Distance: {info.distance}</p>
+              <p className={styles.customFont}>Take Time: {info.taketime}</p>
             </div>
           ))}
-        {/* 코스 정보 출력 */}
+      </div>
+
+      <img src="/course.png" alt="a" className={styles.course} />
+      <div className={styles.box3}>
+        {/* <h2>COURSE</h2> */}
         {courseInfo &&
           courseInfo.map((info, index) => (
             <div key={index}>
-              <h2>코스 정보</h2>
-              <p>Subname: {info.subname}</p>
-              <p>Subdetailoverview: {info.subdetailoverview}</p>
-              {/* 여기에 코스 정보를 출력하는 코드 추가 */}
+               <div className={styles.card}>
+              <p className={styles.subName}>{info.subname}</p>
+              <p className={styles.customFont}>{info.subdetailoverview}</p></div>
             </div>
           ))}
       </div>
