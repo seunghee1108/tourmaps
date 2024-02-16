@@ -35,13 +35,11 @@
   align-items: center;
   overflow-x: auto;
   text-align: center;
-
   font-family: 'Acme', sans-serif;
 
 }
 
 .table {
-  // display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
@@ -51,9 +49,8 @@
 .table th,
 .table td {
   padding: 12px;
-  // text-align: left;
-  // border-bottom: 1px solid #e5e5e5; 
   font-family: 'Acme', sans-serif;
+
 
 }
 
@@ -79,17 +76,20 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  /* 텍스트를 가운데 정렬합니다. */
 
   img {
     width: 100px;
     /* 원하는 너비 설정 */
     height: 100px;
     /* 원하는 높이 설정 */
-    border-radius: 50%;
+    border-radius: 100px;
     /* 이미지를 동그랗게 만듭니다. */
     object-fit: cover;
     /* 이미지를 부모 요소에 맞게 잘라서 보여줍니다. */
     padding: 30px;
+    margin-bottom: 5px;
     cursor: pointer;
     /* 마우스 커서를 포인터로 변경하여 클릭 가능한 상태로 표시 */
   }
