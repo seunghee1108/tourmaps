@@ -1,8 +1,7 @@
 "use client";
 
-import axios from "axios";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import "/app/globals.css";
 import styles from "@/app/styles/search.module.scss";
 import Topbar from "../components/Topbar/Topbar";
 
@@ -92,18 +91,13 @@ const SearchPage: React.FC = () => {
                 <tr key={index} className={styles.row}>
                   <td>{item.title}</td>
                   <td>{item.addr1}</td>
-                  {/* <td>{item.addr2}</td>
-                  <td>{item.cat1}</td>
-                  <td>{item.cat2}</td> */}
-                  {/* <td>{item.firstimage}</td> */}
+           
 
                   <td>
                   {item.firstimage && (
-                    <img src={item.firstimage} alt={`이미지${index + 1}`} />
+                    <img src={item.firstimage} alt={`이미지${index + 1}`}  className={styles.image}/>
                   )}
                 </td>
-
-                  {/* <td>{item.firstimage2}</td> */}
                 </tr>
               ))}
             </tbody>
