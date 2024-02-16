@@ -1,6 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useState, useEffect } from "react";
+import "/app/globals.css";
 import styles from "@/app/styles/region.module.scss";
 import Topbar from "../components/Topbar/Topbar";
 
@@ -259,77 +261,21 @@ const SearchRegionPage: React.FC = () => {
       <div className={styles.resultContainer}>
         <h2 className={styles.resultTitle}></h2>
         <div className={styles.div3}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                {/* <th>주소</th> */}
-                <th>TITLE</th>
-                {/* <th>contentid</th>
-                <th>areacode</th>
-                <th>booktour</th> */}
-                {/* <th>cat1</th>
-                <th>cat2</th>
-                <th>cat3</th> */}
-                {/* <th>contenttypeid</th> */}
-                {/* <th>createdtime</th> */}
-                {/* <th>cpyrhtDivCd</th> */}
-                <th> IMAGE</th>
-                {/* <th> firstimage2</th>  */}
-                {/* <th>mapx</th> */}
-                {/* <th>mapy</th> */}
-                {/* <th>mlevel</th> */}
-                {/* <th>modifiedtime</th>
-                <th>sigungucode</th> */}
-                <th>OVERVIEW</th> {/* 추가: overview 표시 */}
-              </tr>
-            </thead>
-            <tbody>
-              {regionResult.map((item, index) => (
-                <tr
-                  key={index}
-                  className={styles.row}
-                  onClick={() => fetchOverview(item.contentid)}
-                >
-                  {/* <td>{item.addr1}</td> */}
-                  <td>{item.title}</td>
-                  {/* <td>{item.contentid}</td>
-                  <td>{item.areacode}</td>
-                  <td>{item.booktour}</td> */}
-                  {/* <td>{item.cat1}</td>
-                  <td>{item.cat2}</td>
-                  <td>{item.cat3}</td> */}
-                  {/* <td>{item.contenttypeid}</td> */}
-                  {/* <td>{item.createdtime}</td> */}
+  {regionResult.map((item, index) => (
+    <div key={index} className={styles.card} onClick={() => fetchOverview(item.contentid)}>
+      <h3>{item.title}</h3>
+      <div className={styles.imageContainer}>
+        {item.firstimage ? (
+          <img src={item.firstimage} alt="First Image" className={styles.image} />
+        ) : (
+          <img src="/no-pictures.png" alt="Default Image"  className={styles.defaultImage}  />
+        )}
+      </div>
+      <p className={styles.overviewBox}> {item.overview && !item.clicked ? item.overview : "Click"}</p>
+    </div>
+  ))}
+</div>
 
-                  {/* <td>{item.cpyrhtDivCd}</td> */}
-                  <td>
-                    {item.firstimage && (
-                      <img src={item.firstimage} alt="First Image" />
-                    )}
-                  </td>
-                  {/* <td>
-                    {item.firstimage2 && (
-                      <img src={item.firstimage2} alt="Second Image" />
-                    )}
-                  </td> */}
-                  {/* <td>{item.mapx}</td> */}
-                  {/* <td>{item.mapy}</td> */}
-                  {/* <td>{item.mlevel}</td> */}
-                  {/* <td>{item.modifiedtime}</td>
-                  <td>{item.sigungucode}</td> */}
-                  {/* <td>{item.contentid}</td> */}
-                  {/* <td>{item.contentid.overview}</td> */}
-                  {/* <p> Click </p> */}
-                  <td>
-                    {item.overview && !item.clicked // overview가 있고 클릭되지 않았을 때
-                      ? item.overview
-                      : "Click"}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
   );
