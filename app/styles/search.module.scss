@@ -165,7 +165,15 @@
 }
 
 .td img {
-  width: 20px;
-  height: auto; // 이미지의 높이를 자동으로 조정합니다.
+  width: 5vw;
+  height: 5vh;
   // cursor: pointer;
+}
+
+.image{
+  border-radius: 5px;
+
+  width: 20vw;
+
+  height: 20vh;
 }
