@@ -148,6 +148,15 @@ const SearchRegionPage: React.FC = () => {
     }
   };
 
+
+  const handleItemClick = (contentId) => {
+    // ContentID를 사용하여 세부 정보 페이지 경로를 생성
+    window.location.href = `/detail/?contentId=${contentId}`;; // 예시 경로입니다. 실제 경로에 따라 수정하세요.
+
+    // 생성한 경로로 페이지 이동
+    // history.push(detailPagePath);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -258,24 +267,39 @@ const SearchRegionPage: React.FC = () => {
           onClick={() => setSelectedRegion("33")}
         />
       </div>
+
       <div className={styles.resultContainer}>
         <h2 className={styles.resultTitle}></h2>
         <div className={styles.div3}>
-  {regionResult.map((item, index) => (
-    <div key={index} className={styles.card} onClick={() => fetchOverview(item.contentid)}>
-      <h3>{item.title}</h3>
-      <div className={styles.imageContainer}>
-        {item.firstimage ? (
-          <img src={item.firstimage} alt="First Image" className={styles.image} />
-        ) : (
-          <img src="/no-pictures.png" alt="Default Image"  className={styles.defaultImage}  />
-        )}
-      </div>
-      <p className={styles.overviewBox}> {item.overview && !item.clicked ? item.overview : "Click"}</p>
-    </div>
-  ))}
-</div>
-
+          {regionResult.map((item, index) => (
+            <div
+              key={index}
+              className={styles.card}
+              onClick={() => handleItemClick(item.contentid)}
+            >
+              <h3>{item.title}</h3>
+              <div className={styles.imageContainer}>
+                {item.firstimage ? (
+                  <img
+                    src={item.firstimage}
+                    alt="First Image"
+                    className={styles.image}
+                  />
+                ) : (
+                  <img
+                    src="/no-pictures.png"
+                    alt="Default Image"
+                    className={styles.defaultImage}
+                  />
+                )}
+              </div>
+              <p className={styles.overviewBox}>
+                {/* {" "}
+                {item.overview && !item.clicked ? item.overview : "Click"} */}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
