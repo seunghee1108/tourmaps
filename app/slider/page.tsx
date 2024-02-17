@@ -1,13 +1,13 @@
-'use client'
-
 import React, { useState } from 'react';
 import styles from '../styles/slide.module.scss';
+import "/app/globals.css";
 
 const SlidePage: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
-    { color: 'beige'},
-    { color: 'azure' }
+    { imageUrl: '/slide.jpg' },
+    // { imageUrl: '/slideimage.jpg' },
+    { imageUrl: '/slideimage2.jpg' }
   ];
 
   const nextSlide = () => {
@@ -24,8 +24,13 @@ const SlidePage: React.FC = () => {
         <div
           key={index}
           className={`${styles.slide} ${index === currentSlide ? styles.active : ''}`}
-          style={{ backgroundColor: slide.color }}
-        />
+        >
+          <img
+            src={slide.imageUrl}
+            alt={`Slide ${index + 1}`}
+            className={styles.slideImage}
+          />
+        </div>
       ))}
       <button className={styles.arrow} onClick={prevSlide}>{'<'}</button>
       <button className={styles.arrow} onClick={nextSlide}>{'>'}</button>
