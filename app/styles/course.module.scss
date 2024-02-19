@@ -10,15 +10,22 @@
   height: 15vh;
 }
 
+.resultContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  text-align: center;
+  font-family: 'Acme', sans-serif;
+}
+
 .resultTitle {
   font-size: 1.5rem;
   display: flex;
-
   justify-content: center;
   align-items: center;
   text-align: center;
   margin-bottom: 10px;
-
 }
 
 .div3 {
@@ -27,16 +34,6 @@
   align-items: center;
   overflow-x: auto;
   text-align: center;
-}
-
-.resultContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-x: auto;
-  text-align: center;
-  font-family: 'Acme', sans-serif;
-
 }
 
 .table {
@@ -49,16 +46,11 @@
 .table th,
 .table td {
   padding: 12px;
-  font-family: 'Acme', sans-serif;
-
-
 }
 
 .table th {
   background-color: #f5f5f5;
   font-weight: bold;
-  font-family: 'Acme', sans-serif;
-
   text-transform: uppercase;
   color: #333;
 }
@@ -77,7 +69,6 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  /* 텍스트를 가운데 정렬합니다. */
 
   img {
     width: 100px;

@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Acme&family=Noto+Sans+KR:wght@100..900&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Acme&family=Noto+Sans+KR:wght@100..900&display=swap');
 
 .container {
   display: flex;
@@ -11,6 +11,19 @@
   height: 15vh;
 }
 
+.image {
+  border-radius: 20px;
+  width: 30vw;
+  margin-left: 5vw;
+}
+
+.imageBox {
+  margin-top: 5vh;
+  width: calc(30% - 20px);
+  margin-right: 5vw;
+  float: left;
+}
+
 .location {
   width: 40px;
   height: auto;
@@ -20,10 +33,21 @@
   margin-right: auto;
 }
 
-.image {
-  border-radius: 20px;
-  width: 30vw;
-  margin-left: 5vw;
+.course {
+  width: 60px;
+  height: auto;
+  margin-top: 5vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.time {
+  margin-left: 2vw;
+  width: 60px;
+  height: auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .title {
@@ -32,39 +56,16 @@
   align-items: center;
 }
 
-.course {
-  width: 60px;
-  height: auto;
-  margin-top: 20px;
-}
-
 .subName {
   font-weight: bold;
   text-align: center;
   font-size: 1.3rem;
 }
 
-
-.time {
-  margin-left: 2vw;
-  width: 60px;
-  height: auto;
-  margin-top: 10px;
-  margin-bottom: 20px;
-
-}
-
 .box {
   width: 100vw;
   display: flex;
   flex-wrap: wrap;
-}
-
-.imageBox {
-  margin-top: 5vh;
-  width: calc(30% - 20px);
-  margin-right: 5vw;
-  float: left;
 }
 
 .box1 {
@@ -85,6 +86,15 @@
   align-items: center;
 }
 
+.box4 {
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
 .contentContainer {
   display: flex;
   align-items: center;
@@ -100,15 +110,6 @@
   margin-top: 1vh;
   width: 50vw;
   height: 20vh;
-}
-
-.box4 {
-  width: 100vw;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
 }
 
 .card {
@@ -132,13 +133,4 @@
 .content p {
   margin: 10px 0;
   line-height: 1.4;
-}
-
-.course {
-  width: 60px;
-  height: auto;
-  margin-top: 5vh;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }

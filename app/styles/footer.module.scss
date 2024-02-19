@@ -1,0 +1,29 @@
+$base-height: 16vh;
+$base-color: white;
+$text-color: #0F1035;
+
+.banner {
+  height:16vh;
+  background-color: white;
+  display: flex;
+  align-items: center;
+
+  div {
+    height:  16vh;
+    color: $text-color;
+    padding: 3vh;
+
+    &:first-child {
+      width: 40vw;
+      text-align: center;
+      font-size: 3rem;
+      padding-top: 8vh;
+    }
+
+    &:nth-child(2) {
+      width: 60vw;
+      font-size: 0.8rem;
+      padding-left: 30vw;
+    }
+  }
+}
