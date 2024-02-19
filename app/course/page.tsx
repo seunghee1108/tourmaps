@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -99,7 +100,7 @@ const SearchCoursePage = () => {
         <h2 className={styles.resultTitle}></h2>
         <div className={styles.div3}>
           <table className={styles.table}>
-            <thead>
+          <thead>
               <tr>
                 <th>TITLE</th>
                 {/* <th>ADDRESS</th> */}
