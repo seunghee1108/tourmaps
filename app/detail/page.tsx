@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
@@ -38,7 +37,7 @@ const DetailPage: React.FC = () => {
     // 소개 정보 가져오는 API 호출
     fetchIntroInfo();
     // 코스 정보 가져오는 API 호출
-  fetchCourseInfo();
+    fetchCourseInfo();
   }, []);
 
   const fetchCommonInfo = async () => {
