@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import "/app/globals.css";
 import styles from "@/app/styles/index.module.scss";
 import Topbar from "@/app/components/Topbar/Topbar";
 import Slider from "./slider/page";
+import Footer from "./footer/page";
 
 function Index() {
   // const [searchKeyword, setSearchKeyword] = useState("");
@@ -48,9 +50,10 @@ function Index() {
         </Link>
       </div>
       <Slider />
-      {/* <div className={`${styles.div} ${styles.box2}`}></div> */}
       {/* <div className={`${styles.div} ${styles.box3}`}></div> */}
-      <div className={`${styles.div} ${styles.box4}`}></div>
+      {/* <div className={`${styles.div} ${styles.box2}`}></div> */}
+      <Footer/>
+      {/* <div className={`${styles.div} ${styles.box4}`}></div> */}
     </div>
   );
 }
