@@ -14,24 +14,25 @@ interface SearchResultRegion {
 }
 
 const regions = [
-  { name: "대전", code: "3", image: "/대전.png" },
-  { name: "강원", code: "32", image: "/강원.png" },
-  { name: "경기도", code: "31", image: "/경기도.png" },
-  { name: "경상남도", code: "36", image: "/경상남도.png" },
-  { name: "경상북도", code: "35", image: "/경북.png" },
-  { name: "광주", code: "5", image: "/광주.png" },
-  { name: "대구", code: "4", image: "/대구.png" },
-  { name: "부산", code: "6", image: "/부산.png" },
   { name: "서울", code: "1", image: "/서울.png" },
-  { name: "세종", code: "8", image: "/세종.png" },
-  { name: "울산", code: "7", image: "/울산.png" },
   { name: "인천", code: "2", image: "/인천.png" },
-  { name: "전라남도", code: "38", image: "/전남.png" },
-  { name: "전라북도", code: "37", image: "/전북.png" },
-  { name: "제주", code: "39", image: "/제주.png" },
-  { name: "충청남도", code: "34", image: "/충남.png" },
+  { name: "대전", code: "3", image: "/대전.png" },
+  { name: "대구", code: "4", image: "/대구.png" },
+  { name: "광주", code: "5", image: "/광주.png" },
+  { name: "부산", code: "6", image: "/부산.png" },
+  { name: "울산", code: "7", image: "/울산.png" },
+  { name: "세종", code: "8", image: "/세종.png" },
+  { name: "경기도", code: "31", image: "/경기도.png" },
   { name: "충청북도", code: "33", image: "/충북.png" },
+  { name: "충청남도", code: "34", image: "/충남.png" },
+  { name: "경상북도", code: "35", image: "/경북.png" },
+  { name: "경상남도", code: "36", image: "/경상남도.png" },
+  { name: "전라북도", code: "37", image: "/전북.png" },
+  { name: "전라남도", code: "38", image: "/전남.png" },
+  { name: "제주", code: "39", image: "/제주.png" },
+  { name: "강원", code: "32", image: "/강원.png" }
 ];
+
 
 const SearchRegionPage: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>("");
@@ -40,7 +41,7 @@ const SearchRegionPage: React.FC = () => {
   const handleRegionSearch = async () => {
     try {
       const response = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&numOfRows=20&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=${selectedRegion}&contentTypeId=25`,
+        `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&numOfRows=30&MobileOS=ETC&MobileApp=Test&_type=json&areaCode=${selectedRegion}&contentTypeId=25`,
         {
           headers: {
             Accept: "application/json",
@@ -89,6 +90,7 @@ const SearchRegionPage: React.FC = () => {
     };
 
     fetchOverviews();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchOverview = async (contentId: string) => {
