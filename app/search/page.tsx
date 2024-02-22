@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useState } from "react";
@@ -7,12 +8,8 @@ import Topbar from "../components/Topbar/Topbar";
 
 interface SearchResultItem {
   addr1: string;
-  addr2: string;
-  cat1: string;
-  cat2: string;
   title: string;
   firstimage: string;
-  firstimage2: string;
 }
 
 const SearchPage: React.FC = () => {
@@ -31,12 +28,8 @@ const SearchPage: React.FC = () => {
         const extractedResults: SearchResultItem[] =
           result.response.body.items.item.map((item: any) => ({
             addr1: item.addr1,
-            addr2: item.addr2,
-            cat1: item.cat1,
-            cat2: item.cat2,
             title: item.title,
             firstimage: item.firstimage,
-            firstimage2: item.firstimage2,
           }));
         setSearchResult(extractedResults);
       } else {
@@ -79,11 +72,7 @@ const SearchPage: React.FC = () => {
               <tr>
                 <th>TITLE</th>
                 <th>ADDRESS</th>
-                {/* <th>주소2</th> */}
-                {/* <th>카테고리1</th> */}
-                {/* <th>카테고리2</th> */}
                 <th>IMAGE</th>
-                {/* <th>이미지2</th> */}
               </tr>
             </thead>
             <tbody>
@@ -91,13 +80,15 @@ const SearchPage: React.FC = () => {
                 <tr key={index} className={styles.row}>
                   <td>{item.title}</td>
                   <td>{item.addr1}</td>
-           
-
                   <td>
-                  {item.firstimage && (
-                    <img src={item.firstimage} alt={`이미지${index + 1}`}  className={styles.image}/>
-                  )}
-                </td>
+                    {item.firstimage && (
+                      <img
+                        src={item.firstimage}
+                        alt={`이미지${index + 1}`}
+                        className={styles.image}
+                      />
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
