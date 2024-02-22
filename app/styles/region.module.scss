@@ -7,7 +7,7 @@
 }
 
 .top {
-  height: 15vh;
+  height: 27vh;
 }
 
 .resultTitle {
@@ -73,17 +73,20 @@
   width: 50vw;
   height: auto; // 이미지의 높이를 자동으로 조정합니다.
   cursor: pointer;
+  margin-top: 30vh;
 }
 
+
 .buttonsContainer {
+  position: relative; /* 부모 요소 기준으로 자식 요소를 배치하기 위해 position 속성을 추가합니다. */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  margin-top: 16vh; /* 필요에 따라 조정하여 탑바와의 간격을 조절합니다. */
 }
 
 .buttonsContainer .image {
-  top: 5vw;
   width: 100px;
   /* 이미지의 너비를 원하는 크기로 설정 */
   height: 100px;
@@ -95,8 +98,31 @@
   object-fit: contain;
   /* 이미지를 부모 요소에 맞게 잘라서 보여줍니다. */
   cursor: pointer;
-  // filter: grayscale(70%);
 }
+
+
+// .buttonsContainer {
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// .buttonsContainer .image {
+//   top: 50vh;  
+//   width: 100px;
+//   /* 이미지의 너비를 원하는 크기로 설정 */
+//   // height: 100
+//   /* 이미지의 높이를 원하는 크기로 설정 */
+//   border-radius: 50%;
+//   /* 이미지를 동그랗게 만듭니다. */
+//   margin: 3px;
+//   /* 이미지 사이의 간격을 조정합니다. */
+//   object-fit: contain;
+//   /* 이미지를 부모 요소에 맞게 잘라서 보여줍니다. */
+//   cursor: pointer;
+//   // filter: grayscale(70%);
+// }
 
 // greyscale 효과
 .buttonsContainer .image:hover {
