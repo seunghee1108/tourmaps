@@ -6,10 +6,6 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-// 검색 결과를 받아올 엔드포인트
-// const searchEndpoint =
-//   "http://apis.data.go.kr/B551011/KorService/searchKeyword";
-
 app.prepare().then(() => {
   const server = express();
 
