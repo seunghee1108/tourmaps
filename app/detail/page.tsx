@@ -114,10 +114,8 @@ const DetailPage: React.FC = () => {
         <Topbar />
       </div>
 
-      {/* location */}
       <img src="/location.png" alt="a" className={styles.location} />
 
-      {/* <h2>공통 정보</h2> */}
       <div className={styles.box}>
         {commonInfo &&
           commonInfo.map((info, index) => (
@@ -134,7 +132,6 @@ const DetailPage: React.FC = () => {
                 />
               </div>
 
-              {/* <h2>상세 정보</h2> */}
               <div className={styles.box1}>
                 <div className={styles.box2}>
                   <div className={styles.contentContainer}>
@@ -157,7 +154,6 @@ const DetailPage: React.FC = () => {
           ))}
       </div>
 
-      {/* <h2>코스 정보</h2> */}
       <img src="/course.png" alt="a" className={styles.course} />
       <div className={styles.box4}>
         {courseInfo &&
