@@ -8,14 +8,18 @@ import Topbar from "../components/Topbar/Topbar";
 
 interface SearchResultList {
   addr1: string;
-  addr2: string;
-  cat1: string;
-  cat2: string;
   title: string;
   firstimage: string;
-  firstimage2: string;
   contentid: string;
 }
+const hashtags = [
+  { name: "가족코스", code: "C0112", image: "/family.png" },
+  { name: "나홀로코스", code: "C0113", image: "/man.png" },
+  { name: "힐링코스", code: "C0114", image: "/healing.png" },
+  { name: "도보코스", code: "C0115", image: "/shoes.png" },
+  { name: "캠핑코스", code: "C0116", image: "/camping.png" },
+  { name: "맛코스", code: "C0117", image: "/food.png" },
+];
 
 const SearchCoursePage = () => {
   const [searchResult, setSearchResult] = useState<SearchResultList[]>([]);
@@ -55,55 +59,26 @@ const SearchCoursePage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <Topbar />
+        <Topbar />/
       </div>
       <div className={styles.course_formButton}>
-        <img
-          src="/family.png"
-          alt="가족코스"
-          onClick={() => handleHashtagClick("C0112")}
-        />
-        {/* <p>#가족코스</p> */}
-        <img
-          src="/man.png"
-          alt="나홀로코스"
-          onClick={() => handleHashtagClick("C0113")}
-        />
-        {/* <p>#나홀로코스</p> */}
-        <img
-          src="/healing.png"
-          alt="힐링코스"
-          onClick={() => handleHashtagClick("C0114")}
-        />
-        {/* <p>#힐링코스</p> */}
-        <img
-          src="/shoes.png"
-          alt="도보코스"
-          onClick={() => handleHashtagClick("C0115")}
-        />
-        {/* <p>#도보코스</p> */}
-        <img
-          src="/camping.png"
-          alt="캠핑코스"
-          onClick={() => handleHashtagClick("C0116")}
-        />
-        {/* <p>#캠핑코스</p> */}
-        <img
-          src="/food.png"
-          alt="맛코스"
-          onClick={() => handleHashtagClick("C0117")}
-        />
-        {/* <p>#맛코스</p> */}
+        {hashtags.map((hashtag) => (
+          <img
+            key={hashtag.code}
+            src={hashtag.image}
+            alt={hashtag.name}
+            onClick={() => handleHashtagClick(hashtag.code)}
+          />
+        ))}
       </div>
 
       <div className={styles.resultContainer}>
         <h2 className={styles.resultTitle}></h2>
         <div className={styles.div3}>
           <table className={styles.table}>
-          <thead>
+            <thead>
               <tr>
                 <th>TITLE</th>
-                {/* <th>ADDRESS</th> */}
               </tr>
             </thead>
             <tbody>
@@ -114,8 +89,6 @@ const SearchCoursePage = () => {
                   onClick={() => handleItemClick(item.contentid)}
                 >
                   <td>{item.title}</td>
-                  {/* <td>{item.addr1}</td> */}
-                  {/* <td>{item.contentid}</td> */}
                 </tr>
               ))}
             </tbody>
