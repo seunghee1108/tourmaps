@@ -21,7 +21,7 @@ const SearchPage: React.FC = () => {
   const handleSearch = async () => {
     try {
       const response = await fetch(
-        `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?numOfRows=100&MobileOS=ETC&MobileApp=%EC%95%84%EC%95%84&_type=json&keyword=${searchKeyword}&serviceKey=${serviceKey}`
+        `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?numOfRows=30&MobileOS=ETC&MobileApp=%EC%95%84%EC%95%84&_type=json&keyword=${searchKeyword}&serviceKey=${serviceKey}`
       );
       if (response.ok) {
         const result = await response.json();
