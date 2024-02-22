@@ -2,7 +2,7 @@
 import React from "react";
 import styles from "@/app/styles/topbar.module.scss"
 import Link from "next/link";
-import TopNav from "./topnav";
+import TopNav from "./Topnav";
 
 function Topbar() {
   return (
