@@ -12,6 +12,7 @@ interface SearchResultList {
   firstimage: string;
   contentid: string;
 }
+
 const hashtags = [
   { name: "가족코스", code: "C0112", image: "/family.png" },
   { name: "나홀로코스", code: "C0113", image: "/man.png" },
@@ -59,7 +60,7 @@ const SearchCoursePage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <Topbar />/
+        <Topbar />
       </div>
       <div className={styles.course_formButton}>
         {hashtags.map((hashtag) => (
