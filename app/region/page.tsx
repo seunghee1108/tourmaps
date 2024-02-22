@@ -7,29 +7,31 @@ import styles from "@/app/styles/region.module.scss";
 import Topbar from "../components/Topbar/Topbar";
 
 interface SearchResultRegion {
-  addr1: string;
-  addr2: string;
   title: string;
   contentid: string;
-  areacode: string;
-  booktour: string;
-  cat1: string;
-  cat2: string;
-  cat3: string;
-  contenttypeid: string;
-  createdtime: string;
   firstimage: string;
-  firstimage2: string;
-  cpyrhtDivCd: string;
-  mapx: string;
-  mapy: string;
-  mlevel: string;
-  modifiedtime: string;
-  sigungucode: string;
-  tel: string;
-  zipcode: string;
   overview: string;
 }
+
+const regions = [
+  { name: "대전", code: "3", image: "/대전.png" },
+  { name: "강원", code: "32", image: "/강원.png" },
+  { name: "경기도", code: "31", image: "/경기도.png" },
+  { name: "경상남도", code: "36", image: "/경상남도.png" },
+  { name: "경상북도", code: "35", image: "/경북.png" },
+  { name: "광주", code: "5", image: "/광주.png" },
+  { name: "대구", code: "4", image: "/대구.png" },
+  { name: "부산", code: "6", image: "/부산.png" },
+  { name: "서울", code: "1", image: "/서울.png" },
+  { name: "세종", code: "8", image: "/세종.png" },
+  { name: "울산", code: "7", image: "/울산.png" },
+  { name: "인천", code: "2", image: "/인천.png" },
+  { name: "전라남도", code: "38", image: "/전남.png" },
+  { name: "전라북도", code: "37", image: "/전북.png" },
+  { name: "제주", code: "39", image: "/제주.png" },
+  { name: "충청남도", code: "34", image: "/충남.png" },
+  { name: "충청북도", code: "33", image: "/충북.png" },
+];
 
 const SearchRegionPage: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>("");
@@ -49,25 +51,10 @@ const SearchRegionPage: React.FC = () => {
         const result = await response.json();
         const items: SearchResultRegion[] = result.response.body.items.item.map(
           (item: any) => ({
-            addr1: item.addr1,
             title: item.title,
             contentid: item.contentid,
-            areacode: item.areacode,
-            booktour: item.booktour,
-            cat1: item.cat1,
-            cat2: item.cat2,
-            cat3: item.cat3,
-            contenttypeid: item.contenttypeid,
-            createdtime: item.createdtime,
-            cpyrhtDivCd: item.cpyrhtDivCd,
-            mapx: item.mapx,
-            mapy: item.mapy,
-            mlevel: item.mlevel,
-            modifiedtime: item.modifiedtime,
-            sigungucode: item.sigungucode,
-            overview: item.overview,
             firstimage: item.firstimage,
-            firstimage2: item.firstimage2,
+            overview: item.overview,
           })
         );
         setRegionResult(items);
@@ -118,25 +105,10 @@ const SearchRegionPage: React.FC = () => {
         const result = await response.json();
         const items: SearchResultRegion[] = result.response.body.items.item.map(
           (item: any) => ({
-            addr1: item.addr1,
             title: item.title,
             contentid: item.contentid,
-            areacode: item.areacode,
-            booktour: item.booktour,
-            cat1: item.cat1,
-            cat2: item.cat2,
-            cat3: item.cat3,
-            contenttypeid: item.contenttypeid,
-            createdtime: item.createdtime,
-            cpyrhtDivCd: item.cpyrhtDivCd,
-            mapx: item.mapx,
-            mapy: item.mapy,
-            mlevel: item.mlevel,
-            modifiedtime: item.modifiedtime,
-            sigungucode: item.sigungucode,
-            overview: item.overview, // overview 초기에 빈 문자열로 설정
             firstimage: item.firstimage,
-            firstimage2: item.firstimage2,
+            overview: item.overview,
           })
         );
         setRegionResult(items);
@@ -148,124 +120,26 @@ const SearchRegionPage: React.FC = () => {
     }
   };
 
-
   const handleItemClick = (contentId) => {
     // ContentID를 사용하여 세부 정보 페이지 경로를 생성
-    window.location.href = `/detail/?contentId=${contentId}`;; // 예시 경로입니다. 실제 경로에 따라 수정하세요.
-
-    // 생성한 경로로 페이지 이동
-    // history.push(detailPagePath);
+    window.location.href = `/detail/?contentId=${contentId}`;
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.top}>
         <Topbar />
-      </div>
-
-      <div className={styles.buttonsContainer}>
-        <img
-          src="/대전.png"
-          alt="대전"
-          className={styles.image}
-          onClick={() => setSelectedRegion("3")}
-        />
-        <img
-          src="/강원.png"
-          alt="강원"
-          className={styles.image}
-          onClick={() => setSelectedRegion("32")}
-        />
-        <img
-          src="/경기도.png"
-          alt="경기도"
-          className={styles.image}
-          onClick={() => setSelectedRegion("31")}
-        />
-        <img
-          src="/경북.png"
-          alt="경북"
-          className={styles.image}
-          onClick={() => setSelectedRegion("35")}
-        />
-        <img
-          src="/경상남도.png"
-          alt="경남"
-          className={styles.image}
-          onClick={() => setSelectedRegion("36")}
-        />
-        <img
-          src="/광주.png"
-          alt="광주"
-          className={styles.image}
-          onClick={() => setSelectedRegion("5")}
-        />
-        <img
-          src="/대구.png"
-          alt="대구"
-          className={styles.image}
-          onClick={() => setSelectedRegion("4")}
-        />
-        <img
-          src="/부산.png"
-          alt="부산"
-          className={styles.image}
-          onClick={() => setSelectedRegion("6")}
-        />
-        <img
-          src="/서울.png"
-          alt="서울"
-          className={styles.image}
-          onClick={() => setSelectedRegion("1")}
-        />
-        <img
-          src="/세종.png"
-          alt="세종"
-          className={styles.image}
-          onClick={() => setSelectedRegion("8")}
-        />
-        <img
-          src="/울산.png"
-          alt="울산"
-          className={styles.image}
-          onClick={() => setSelectedRegion("7")}
-        />
-        <img
-          src="/인천.png"
-          alt="인천"
-          className={styles.image}
-          onClick={() => setSelectedRegion("2")}
-        />
-        <img
-          src="/전남.png"
-          alt="전남"
-          className={styles.image}
-          onClick={() => setSelectedRegion("38")}
-        />
-        <img
-          src="/전북.png"
-          alt="전북"
-          className={styles.image}
-          onClick={() => setSelectedRegion("37")}
-        />
-        <img
-          src="/제주.png"
-          alt="제주"
-          className={styles.image}
-          onClick={() => setSelectedRegion("39")}
-        />
-        <img
-          src="/충남.png"
-          alt="충남"
-          className={styles.image}
-          onClick={() => setSelectedRegion("34")}
-        />
-        <img
-          src="/충북.png"
-          alt="충북"
-          className={styles.image}
-          onClick={() => setSelectedRegion("33")}
-        />
+        <div className={styles.buttonsContainer}>
+          {regions.map((region) => (
+            <img
+              key={region.code}
+              src={region.image}
+              alt={region.name}
+              className={styles.image}
+              onClick={() => setSelectedRegion(region.code)}
+            />
+          ))}
+        </div>
       </div>
 
       <div className={styles.resultContainer}>
@@ -293,10 +167,7 @@ const SearchRegionPage: React.FC = () => {
                   />
                 )}
               </div>
-              <p className={styles.overviewBox}>
-                {/* {" "}
-                {item.overview && !item.clicked ? item.overview : "Click"} */}
-              </p>
+              <p className={styles.overviewBox}></p>
             </div>
           ))}
         </div>
