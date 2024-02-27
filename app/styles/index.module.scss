@@ -8,7 +8,6 @@
   height: 13vh;
 }
 
-
 .top {
   height: 14vh;
 }
@@ -18,37 +17,35 @@
   height: 100vh;
 }
 
-
 .box {
   position: relative;
   display: flex;
+}
 
-  .box1 {
-    width: 35vw;
-    height: 30vh;
-    margin-top: 55vh;
-    margin-left: 70vw;
-    font-size: 2.3rem;
-    color: #135206;
-    font-weight: 700;
+.box .box1 {
+  width: 35vw;
+  height: 30vh;
+  margin-top: 55vh;
+  margin-left: 70vw;
+  font-size: 2.3rem;
+  color: #135206;
+  font-weight: 700;
+}
 
-  }
+.box button {
+  width: 15vw;
+  height: 5vh;
+  border: 0;
+  border-radius: 20px;
+  background-color: #f9efdbb9;
+  color: #135206;
+  margin-left: 2vw;
+}
 
-  button {
-    width: 15vw;
-    height: 5vh;
-    border: 0;
-    border-radius: 20px;
-    background-color: #f9efdbb9;
-    color: #135206;
-    margin-left: 2vw;
-
-    &:hover {
-      background-color: #135206;
-      color: #f9efdbb9;
-      cursor: pointer;
-    }
-  }
+.box button:hover {
+  background-color: #135206;
+  color: #f9efdbb9;
+  cursor: pointer;
 }
 
 .video {
@@ -62,7 +59,6 @@
   z-index: -1;
 }
 
-
 .box1 {
   width: 35vw;
   height: 30vh;
@@ -75,7 +71,7 @@
 
 .box2 {
   overflow: hidden;
-  background-color: #f6f1eb;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,23 +81,20 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: #f6f1eb;
+  background-color: white;
   align-items: center;
   height: 30vh;
   width: 100%;
-
 }
 
 .box4 {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  // justify-content: space-around;
   align-items: center;
   height: 30vh;
   width: 100%;
 }
-
 
 .swiperpagination {
   top: 200vh;
@@ -114,7 +107,7 @@
 .subscriptionItem {
   width: 20vw;
   height: 80vh;
-  background-color: #f6f1eb;
+  background-color: white;
   margin-top: 10vh;
   display: flex;
   flex-direction: column;
@@ -122,38 +115,18 @@
   align-items: center;
   cursor: pointer;
   transition: border 0.3s ease;
-
-  /* 테두리에 트랜지션 효과를 추가 */
-  p {
-    font-size: 1.5rem;
-  }
-
-  /* 호버 시 테두리 스타일 */
-  &:hover {
-    border: 5px solid black;
-    /* 테두리 색 및 두께 설정 */
-  }
 }
 
-// .noslidesubscriptioncontainer {
-//   width: 100vw;
-//   height: 100vh;
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: space-around;
-//   margin: 0;
-// }
+.subscriptionItem p {
+  font-size: 1.5rem;
+}
 
-// .noslidesubscriptionItem {
-//   width: 15vw;
-//   height: 30vh;
-//   background-color: lightgray;
-//   margin-top: 10vh;
-//   display: flex;
-// }
+.subscriptionItem:hover {
+  border: 5px solid black;
+}
 
 .banner2 {
-  background-color: #f6f1eb;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -167,8 +140,8 @@
   width: 30vw;
   height: 7vh;
   border-radius: 30px;
-  border: 2px solid #000;
-  background: #FAF4F4;
+  border: 2px solid #365486;
+  background: #eef5ff;
   font-size: 1.2rem;
 }
 

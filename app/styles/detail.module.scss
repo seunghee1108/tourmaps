@@ -1,5 +1,12 @@
-// @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
-// @import url('https://fonts.googleapis.com/css2?family=Acme&family=Noto+Sans+KR:wght@100..900&display=swap');
+$base-height: 15vh;
+$base-width: 30vw;
+$base-margin: 5vw;
+$base-border-radius: 20px;
+$base-font-size: 1.3rem;
+$base-box-width: 100vw;
+$base-box-margin: 10px;
+$base-card-width: 35vw;
+$base-card-height: 30vh;
 
 .container {
   display: flex;
@@ -8,19 +15,19 @@
 }
 
 .top {
-  height: 15vh;
+  height: $base-height;
 }
 
 .image {
-  border-radius: 20px;
-  width: 30vw;
-  margin-left: 5vw;
+  border-radius: $base-border-radius;
+  width: $base-width;
+  margin-left: $base-margin;
 }
 
 .imageBox {
-  margin-top: 5vh;
+  margin-top: $base-height;
   width: calc(30% - 20px);
-  margin-right: 5vw;
+  margin-right: $base-margin;
   float: left;
 }
 
@@ -36,7 +43,7 @@
 .course {
   width: 60px;
   height: auto;
-  margin-top: 5vh;
+  margin-top: $base-height;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -59,11 +66,11 @@
 .subName {
   font-weight: bold;
   text-align: center;
-  font-size: 1.3rem;
+  font-size: $base-font-size;
 }
 
 .box {
-  width: 100vw;
+  width: $base-box-width;
   display: flex;
   flex-wrap: wrap;
 }
@@ -72,9 +79,9 @@
   justify-content: center;
   text-align: center;
   float: left;
-  margin-left: 5vw;
+  margin-left: $base-margin;
   height: 40vh;
-  margin-top: 5vh;
+  margin-top: $base-height;
 }
 
 .box2 {
@@ -87,12 +94,12 @@
 }
 
 .box4 {
-  width: 100vw;
+  width: $base-box-width;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: $base-box-margin;
 }
 
 .contentContainer {
@@ -113,10 +120,10 @@
 }
 
 .card {
-  margin-top: 3vh;
-  width: 35vw;
-  height: 30vh;
-  margin: 20px;
+  margin-top: $base-box-margin;
+  width: $base-card-width;
+  height: $base-card-height;
+  margin: $base-box-margin;
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 10px;
