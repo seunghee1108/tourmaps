@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 $base-height: 16vh;
 $base-color: white;
 $text-color: #0F1035;
@@ -18,12 +19,14 @@ $text-color: #0F1035;
       text-align: center;
       font-size: 3rem;
       padding-top: 8vh;
+      font-family: 'Acme', sans-serif;
     }
 
     &:nth-child(2) {
       width: 60vw;
       font-size: 0.8rem;
       padding-left: 30vw;
+      font-family: 'Acme', sans-serif;
     }
   }
 }
