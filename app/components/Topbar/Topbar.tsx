@@ -2,12 +2,10 @@
 import React from "react";
 import styles from "@/app/styles/topbar.module.scss"
 import Link from "next/link";
-import TopNav from "./Topnav";
 
 function Topbar() {
   return (
     <div className={styles.topbar}>
-      <div className={styles.div1}><TopNav/></div>
       <div className={styles.div2}>
         <Link href="/" >TOUR MAPS</Link>
       </div>
