@@ -130,14 +130,21 @@ $base-card-height: 30vh;
   text-align: left;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  cursor: pointer;
+
 }
 
 .content {
   max-height: 150px;
   overflow-y: auto;
+  cursor: pointer;
+
 }
 
 .content p {
   margin: 10px 0;
   line-height: 1.4;
+  
+  cursor: pointer;
+  
 }
