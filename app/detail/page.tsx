@@ -29,7 +29,7 @@ const DetailPage: React.FC = () => {
   const [courseInfo, setCourseInfo] = useState<SearchResultInfo[]>([]);
 
   const params = useSearchParams();
-  const contentId = params.get("contentId");
+  const contentId = params?.get("contentId");
 
   useEffect(() => {
     // 공통 정보 가져오는 API 호출

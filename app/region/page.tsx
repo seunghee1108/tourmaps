@@ -79,10 +79,10 @@ const SearchRegionPage: React.FC = () => {
       for (let i = 0; i < newRegionResult.length; i++) {
         try {
           const response = await fetchOverview(newRegionResult[i].contentid);
-          newRegionResult[i].overview = response;
+          newRegionResult[i].overview = response; // 이 부분 수정
         } catch (error) {
           console.error("Error fetching overview:", error);
-          newRegionResult[i].overview = "";
+          newRegionResult[i].overview = ""; // 오류가 발생했을 때 처리
         }
       }
       setRegionResult(newRegionResult);
@@ -92,7 +92,7 @@ const SearchRegionPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchOverview = async (contentId: string) => {
+  const fetchOverview = async (contentId: string): Promise<SearchResultRegion[]> => {
     try {
       const response = await fetch(
         `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&numOfRows=30&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&MobileOS=ETC&_type=json`,
@@ -112,14 +112,17 @@ const SearchRegionPage: React.FC = () => {
             overview: item.overview,
           })
         );
-        setRegionResult(items);
+        return items; // 가져온 지역 정보 배열 반환
       } else {
         console.error("Error:", response.statusText);
+        return []; // 빈 배열 반환 또는 오류 처리를 위한 적절한 반환값
       }
     } catch (error) {
       console.error("Error fetching data:", error);
+      return []; // 빈 배열 반환 또는 오류 처리를 위한 적절한 반환값
     }
   };
+  
 
   const handleItemClick = (contentId) => {
     // ContentID를 사용하여 세부 정보 페이지 경로를 생성
