@@ -30,9 +30,8 @@ const regions = [
   { name: "전라북도", code: "37", image: "/전북.png" },
   { name: "전라남도", code: "38", image: "/전남.png" },
   { name: "제주", code: "39", image: "/제주.png" },
-  { name: "강원", code: "32", image: "/강원.png" }
+  { name: "강원", code: "32", image: "/강원.png" },
 ];
-
 
 const SearchRegionPage: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>("");
@@ -90,7 +89,7 @@ const SearchRegionPage: React.FC = () => {
     };
 
     fetchOverviews();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchOverview = async (contentId: string) => {
