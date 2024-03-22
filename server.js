@@ -4,9 +4,7 @@ import next from "next";
 import cors from "cors"; // cors 미들웨어 추가
 
 
-const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
-const handle = app.getRequestHandler();
+const dev = process.env.NODE_ENV !== "production"; 
 
 app.prepare().then(() => {
   const server = express();

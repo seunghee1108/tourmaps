@@ -109,6 +109,7 @@ const DetailPage: React.FC = () => {
 
   return (
     // topbar
+    
     <div className={styles.container}>
       <div className={styles.top}>
         <Topbar />
