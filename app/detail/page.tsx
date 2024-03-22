@@ -25,7 +25,7 @@ interface SearchResultInfo {
 }
 
 const DetailPage: React.FC = () => {
-  const params = useSearchParams();
+  const params : any = useSearchParams();
 
   const [commonInfo, setCommonInfo] = useState<SearchResultDetail[]>([]);
   const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]);
@@ -37,7 +37,7 @@ const DetailPage: React.FC = () => {
 // </Suspense>
 // );
 
-  const contentId = params?.get("contentId");
+  const contentId = params.get("contentId");
 
   useEffect(() => {
     // 공통 정보 가져오는 API 호출
