@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import "/app/globals.css";
 import styles from "@/app/styles/detail.module.scss";
 import Topbar from "../components/Topbar/Topbar";
 import { useSearchParams } from "next/navigation";
+
 
 interface SearchResultDetail {
   title: string;
@@ -24,11 +25,18 @@ interface SearchResultInfo {
 }
 
 const DetailPage: React.FC = () => {
+  const params = useSearchParams();
+
   const [commonInfo, setCommonInfo] = useState<SearchResultDetail[]>([]);
   const [introInfo, setIntroInfo] = useState<SearchResultIntro[]>([]);
   const [courseInfo, setCourseInfo] = useState<SearchResultInfo[]>([]);
 
-  const params = useSearchParams();
+//   const params = (
+//   <Suspense fallback={<div>Loading params...</div>}>
+//    {useSearchParams()}
+// </Suspense>
+// );
+
   const contentId = params?.get("contentId");
 
   useEffect(() => {
@@ -38,12 +46,12 @@ const DetailPage: React.FC = () => {
     fetchIntroInfo();
     // 코스 정보 가져오는 API 호출
     fetchCourseInfo();
-  }, []);
+  }, [contentId]);
 
   const fetchCommonInfo = async () => {
     try {
       const response = await fetch(
-        `http://apis.data.go.kr/B551011/KorService1/detailCommon1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&_type=json`
+        `https://apis.data.go.kr/B551011/KorService1/detailCommon1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&_type=json`
       );
       if (response.ok) {
         const result = await response.json();
@@ -66,7 +74,7 @@ const DetailPage: React.FC = () => {
   const fetchIntroInfo = async () => {
     try {
       const response = await fetch(
-        `http://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
+        `https://apis.data.go.kr/B551011/KorService1/detailIntro1?ServiceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
       if (response.ok) {
         const result = await response.json();
@@ -88,7 +96,7 @@ const DetailPage: React.FC = () => {
   const fetchCourseInfo = async () => {
     try {
       const response = await fetch(
-        `http://apis.data.go.kr/B551011/KorService1/detailInfo1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
+        `https://apis.data.go.kr/B551011/KorService1/detailInfo1?serviceKey=WRM%2FxwABX2ibu1FMzeh0M4ca55og%2BubZJmgviYSiIEluTOFZkIWMZ3%2BqvAcSS85SpKyryvYtYgt1AX4JLj1szQ%3D%3D&contentTypeId=25&contentId=${contentId}&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
       if (response.ok) {
         const result = await response.json();
