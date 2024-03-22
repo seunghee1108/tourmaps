@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
+'use client'
 import React, { useState } from "react";
-import styles from "../styles/slide.module.scss";
+import styles from "../styles/slide.module.scss"
 import "/app/globals.css";
 
 const SlidePage: React.FC = () => {

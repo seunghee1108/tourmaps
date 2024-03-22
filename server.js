@@ -1,6 +1,8 @@
 import express from "express";
 import fetch from "node-fetch";
 import next from "next";
+import cors from "cors"; // cors 미들웨어 추가
+
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -8,6 +10,8 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
+
+  server.use(cors());
 
   server.get("/detail/:contentId", (req, res) => {
     const contentId = req.params.contentId; // 요청에서 contentId를 추출합니다.
